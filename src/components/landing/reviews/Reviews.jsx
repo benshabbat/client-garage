@@ -1,49 +1,25 @@
 import "./reviews.css";
 import "react-multi-carousel/lib/styles.css";
-import React from "react";
-import {CreateReviews,Review} from "../../index";
+import React, { useState, useEffect } from "react";
+import { CreateReviews, Review } from "../../index";
 import Carousel from "react-multi-carousel";
 import useOpenModel from "../../../hooks/useOpenModel";
+import { getReviews } from "../../../Utils";
 const Reviews = () => {
-  const { openModel, handelClick } = useOpenModel();
+  const [handleAddReview, isOpenAddReview] = useOpenModel();
+  const [allReviews, setAllReviews] = useState([]);
 
-  const reviewsCustomers = [
-    {
-      name: "tal",
-      desc: "Contrary to popular belief, Lorem Ipsum is not simply random text.",
-      stars: 4,
-    },
-    {
-      name: "yossi",
-      desc: "Contrary to popular belief, Lorem Ipsum is not simply random text.",
-      stars: 3,
-    },
-    {
-      name: "dana",
-      desc: "Contrary to popular belief, Lorem Ipsum is not simply random text. ",
-      stars: 5,
-    },
-    {
-      name: "moshe",
-      desc: "Contrary to popular belief, Lorem Ipsum is not simply random text. Contrary to popular belief, Lorem Ipsum is not simply random text.",
-      stars: 4,
-    },
-    {
-      name: "menachem",
-      desc: "Contrary to popular belief, Lorem Ipsum is not simply random text.",
-      stars: 5,
-    },
-    {
-      name: "david",
-      desc: "Contrary to popular belief, Lorem Ipsum is not simply random text. ",
-      stars: 1,
-    },
-    {
-      name: "avraham",
-      desc: "Contrary to popular belief, Lorem Ipsum is not simply random text. Contrary to popular belief, Lorem Ipsum is not simply random text.",
-      stars: 4,
-    },
-  ];
+  useEffect(() => {
+    const reviews = async () => {
+      const { data } = await getReviews();
+      setAllReviews(data);
+    };
+    reviews();
+    console.log("model")
+  }, [isOpenAddReview]);
+  const handelClick = () => {
+    handleAddReview();
+  };
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -68,7 +44,7 @@ const Reviews = () => {
       <h1>Reviews</h1>
       <div>
         <Carousel infinite={true} responsive={responsive}>
-          {reviewsCustomers.map((customer, index) => {
+          {allReviews.map((customer, index) => {
             return <Review customer={customer} key={index} />;
           })}
         </Carousel>
@@ -76,7 +52,7 @@ const Reviews = () => {
       <button className="btn" onClick={handelClick}>
         Add Review
       </button>
-      {<CreateReviews handelClick={handelClick}open={openModel}/>}
+      {<CreateReviews handelClick={handleAddReview} isOpen={isOpenAddReview} />}
     </div>
   );
 };

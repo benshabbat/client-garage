@@ -4,6 +4,7 @@ const API_URL_USER = "/users";
 const API_URL_SERVICE = "/services";
 const API_URL_MESSAGES = "/messages"
 const API_URL_REGISTER = "/auth/register";
+const API_URL_REVIEWS = "/reviews";
 const ADMIN = "63e14deca4340e45d23f20b2"
 const getAll = (url) => {
   axios.get(url);
@@ -29,6 +30,9 @@ const updateCar = (id, obj) => {
 const createCar = (id, obj) => {
   axios.post(`${API_URL_CAR}/${id}`, obj);
 };
+const createReview= (obj) => {
+  axios.post(`${API_URL_REVIEWS}`, obj);
+};
 const createService = (id, obj) => {
   axios.post(`${API_URL_SERVICE}/${id}`, obj);
 };
@@ -53,5 +57,8 @@ const deleteCar= (idCar ,idUser) => {
 const getUser = (id) => {
   return axios.get(`${API_URL_USER}/${id}`);
 };
+const getReviews = () => {
+  return axios.get(`${API_URL_REVIEWS}`);
+};
 
-export {createMessageToAdmin,createMessage,createService,createUser,createReqService,updateService, getAll, getById, addItem, updateUser, deleteUser, createCar, getUser,deleteCar,updateCar,deleteService };
+export {createReview,getReviews,createMessageToAdmin,createMessage,createService,createUser,createReqService,updateService, getAll, getById, addItem, updateUser, deleteUser, createCar, getUser,deleteCar,updateCar,deleteService };

@@ -1,26 +1,47 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Rating } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { OpenModel } from "../../index";
-const CreateReviews = ({ handelClick,open }) => {
+import { createReview } from "../../../Utils";
+const CreateReviews = ({ handelClick, isOpen }) => {
   const nameRef = useRef();
   const descRef = useRef();
   const numRef = useRef();
   const maxLength = 80;
-  const [star, setStar] = useState(5);
+  const [stars, setStars] = useState(5);
+  const [formData, setFormData] = useState(undefined);
+  const addReview = (e) => {
+    e.preventDefault();
+    setFormData({
+      name: nameRef.current.value,
+      description: descRef.current.value,
+      stars,
+    });
+    handelClick();
+  };
+
+  useEffect(() => {
+    if (formData !== undefined) {
+      const newReview = async () => {
+        await createReview(formData);
+      };
+      newReview();
+    }
+    setFormData(undefined);
+  }, [formData]);
 
   return (
-        <OpenModel
-        comp={
-          <form className="form">
+    <OpenModel
+      comp={
+        <form className="form">
           <CancelIcon onClick={handelClick} className="form-close" />
           <h1>garage review</h1>
           <label className="form-label">
             <Rating
               style={{ fontSize: 45, top: "15px" }}
-              value={star}
-              onChange={(event, newstar) => {
-                setStar(newstar);
+              value={stars}
+              onChange={(event, newstars) => {
+                setStars(newstars);
               }}
             />
           </label>
@@ -49,24 +70,13 @@ const CreateReviews = ({ handelClick,open }) => {
             />
             <input className="num" ref={numRef} value={maxLength} readOnly />
           </label>
-          <button
-            className="form-btn"
-            onClick={(e) => {
-              e.preventDefault();
-              console.log({
-                name: nameRef.current.value,
-                desc: descRef.current.value,
-                star,
-              });
-              handelClick();
-            }}
-          >
+          <button className="form-btn" onClick={addReview}>
             Add Reviews
           </button>
         </form>
-        }
-        open={open}
-      />
+      }
+      isOpen={isOpen}
+    />
   );
 };
 

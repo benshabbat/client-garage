@@ -5,7 +5,7 @@ const Review = ({ customer, index }) => {
     <div className="one-review" key={index}>
       <h1>{customer.name}</h1>
       <Rating value={customer.stars} readOnly />
-      <div className="desc">{customer.desc}</div>
+      <div className="desc">{customer.description}</div>
     </div>
   );
 };
