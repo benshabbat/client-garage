@@ -20,7 +20,7 @@ const Contact = () => {
   return (
     <div id="contact">
       <Form
-        notOnFocus={true}
+        isFocus={false}
         setData={setFormData}
         title="Contact"
         sec_title="Send for contact with admin"

@@ -11,7 +11,7 @@ const Form = ({
   setData,
   options = null,
   nameSelect,
-  notOnFocus
+  isFocus=true
 }) => {
   const handleChange = (e) => {
     const { name, value, checked, type,  } = e.target;
@@ -52,7 +52,7 @@ const Form = ({
           <label key={index} className="form-label">
             {!i.hidden && <span>{i?.name}</span>}
             <input
-              autoFocus={index === 0 && !notOnFocus}
+              autoFocus={index === 0 && isFocus}
               placeholder={i?.name}
               type={i?.type}
               name={i?.name}
