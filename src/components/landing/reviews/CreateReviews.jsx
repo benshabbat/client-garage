@@ -48,6 +48,7 @@ const CreateReviews = ({ handelClick, isOpen }) => {
           <label className="form-label">
             <span>Name</span>
             <input
+              autoFocus
               ref={nameRef}
               type="text"
               title="Name"

@@ -35,8 +35,11 @@ const Form = ({
             <option>{nameSelect}</option>
             {options?.map((option, index) => {
               return (
-                <option key={index} value={nameSelect==="status"?option?.value:option?._id}>
-                 { nameSelect==="status"?option?.label:option?.username}
+                <option
+                  key={index}
+                  value={nameSelect === "status" ? option?.value : option?._id}
+                >
+                  {nameSelect === "status" ? option?.label : option?.username}
                 </option>
               );
             })}
@@ -46,8 +49,9 @@ const Form = ({
       {inputs.map((i, index) => {
         return (
           <label key={index} className="form-label">
-            {(!i.hidden) &&<span>{i?.name}</span>}
+            {!i.hidden && <span>{i?.name}</span>}
             <input
+              autoFocus={index === 0}
               placeholder={i?.name}
               type={i?.type}
               name={i?.name}
