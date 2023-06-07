@@ -11,9 +11,10 @@ const Form = ({
   setData,
   options = null,
   nameSelect,
+  notOnFocus
 }) => {
   const handleChange = (e) => {
-    const { name, value, checked, type } = e.target;
+    const { name, value, checked, type,  } = e.target;
     setData((prevState) => ({
       ...prevState,
       [name]: type === "checkbox" ? checked : value,
@@ -51,7 +52,7 @@ const Form = ({
           <label key={index} className="form-label">
             {!i.hidden && <span>{i?.name}</span>}
             <input
-              autoFocus={index === 0}
+              autoFocus={index === 0 && !notOnFocus}
               placeholder={i?.name}
               type={i?.type}
               name={i?.name}

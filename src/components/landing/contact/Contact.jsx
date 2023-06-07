@@ -19,17 +19,18 @@ const Contact = () => {
   };
   return (
     <div id="contact">
-       <Form
-          setData={setFormData}
-          title="Contact"
-          sec_title="Send for contact with admin"
-          inputs={[
-            { name: "from", type: "text" },
-            { name: "title", type: "text" },
-            { name: "description", type: "text" },
-          ]}
-          onSubmit={onSubmit}
-        />
+      <Form
+        notOnFocus={true}
+        setData={setFormData}
+        title="Contact"
+        sec_title="Send for contact with admin"
+        inputs={[
+          { name: "from", type: "text" },
+          { name: "title", type: "text" },
+          { name: "description", type: "text" },
+        ]}
+        onSubmit={onSubmit}
+      />
     </div>
   );
 };
