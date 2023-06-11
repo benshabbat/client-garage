@@ -18,12 +18,8 @@ import {
   getCarsByIdUser,
   resetUser,
 } from "./features/user/userSlice";
-import {
-  getServicesByType,
-} from "./features/admin/adminSlice";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 
 function App() {
   const { user: userAuth } = useSelector((state) => state.auth);
@@ -31,9 +27,6 @@ function App() {
   const { services, cars, users } = useSelector((state) => state.admin);
   const dispatch = useDispatch();
   useEffect(() => {
-    if (userAuth && user?.isAdmin) {
-      dispatch(getServicesByType());
-    }
     if (userAuth && user?._id) {
       dispatch(getMessagesByIdUser(user?._id));
       dispatch(getCarsByIdUser(user?._id));
@@ -47,15 +40,20 @@ function App() {
           <Route path="/" element={<PageLanding />} />
           <Route path="/account" element={<Account user={user} />} />
           <Route path="/users" element={<Users users={users} />} /> {/*check */}
-          <Route path="/cars" element={<Cars userId={user?._id} cars={cars} />} /> {/*check */}
+          <Route
+            path="/cars"
+            element={<Cars userId={user?._id} cars={cars} />}
+          />
+          {/*check */}
           <Route
             path="/messages"
-            element={<Messages messages={messages} user={user} users={users}/>}
+            element={<Messages messages={messages} user={user} users={users} />}
           />
           <Route
             path="/services"
             element={<ServicesAdmin services={services} />}
           />
+          {/*check */}
           <Route path="/services/user/" element={<Services user={user} />} />
           <Route
             path="/services/car/:carId"

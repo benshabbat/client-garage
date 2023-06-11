@@ -1,11 +1,17 @@
 import "../components/table/table.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useOpenModel from "../hooks/useOpenModel";
 import ManageService from "../components/manage/ManageService";
+import { useDispatch } from "react-redux";
+import { getServicesByType } from "../features/admin/adminSlice";
 const ServicesAdmin = ({ services }) => {
   const [servicesFilter, setServicesFilter] = useState();
   const [service, setService] = useState();
   const [handelService, isOpenService] = useOpenModel();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getServicesByType());
+  }, []);
   const filterSearch = (e) => {
     const { value } = e.target;
 

@@ -11,7 +11,7 @@ const Users = ({ users = null }) => {
   const [handleCreateUser, isOpenCreateUser] = useOpenModel();
   // const [data, setData] = useState(false)
   const [filterUsers, setFilterUsers] = useState();
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUsers());
   }, []);
@@ -72,14 +72,12 @@ const Users = ({ users = null }) => {
             </thead>
             <tbody>
               {filterUsers ? filterUsers?.map(bodyUser) : users?.map(bodyUser)}
-      
             </tbody>
           </table>
-                  <button onClick={handleCreateUser}>Create User</button>
+          <button onClick={handleCreateUser}>Create User</button>
         </section>
       </div>
-      <Register handelClick={handleCreateUser} 
-      isOpen={isOpenCreateUser} />
+      <Register handelClick={handleCreateUser} isOpen={isOpenCreateUser} />
       <ManageUser
         user={user}
         handelClick={handleManageUser}
