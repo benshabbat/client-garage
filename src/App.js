@@ -34,7 +34,7 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     if (userAuth && user?.isAdmin) {
-      dispatch(getCarsByType(user?._id));
+      // dispatch(getCarsByType(user?._id));
       dispatch(getUsers());
       dispatch(getServicesByType());
     }
@@ -51,7 +51,7 @@ function App() {
           <Route path="/" element={<PageLanding />} />
           <Route path="/account" element={<Account user={user} />} />
           <Route path="/users" element={<Users users={users} />} />
-          <Route path="/cars" element={<Cars cars={cars} />} />
+          <Route path="/cars" element={<Cars userId={user?._id} cars={cars} />} />
           <Route
             path="/messages"
             element={<Messages messages={messages} user={user} users={users}/>}
