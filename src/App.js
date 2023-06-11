@@ -12,12 +12,7 @@ import {
   ServicesAdmin,
 } from "./pages";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getUser,
-  getMessagesByIdUser,
-  getCarsByIdUser,
-  resetUser,
-} from "./features/user/userSlice";
+import { getUser } from "./features/user/userSlice";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -32,10 +27,11 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Header userAuth={userAuth} user={user} />
+        <Header userAuth={userAuth} user={user} />{/*check */}
         <Routes>
           <Route path="/" element={<PageLanding />} />
-          <Route path="/account" element={<Account user={user} />} />{/*check */}
+          <Route path="/account" element={<Account user={user} />} />
+          {/*check */}
           <Route path="/users" element={<Users users={users} />} /> {/*check */}
           <Route
             path="/cars"
@@ -46,16 +42,17 @@ function App() {
             path="/messages"
             element={<Messages messages={messages} user={user} users={users} />}
           />
+          {/*check */}
           <Route
             path="/services"
             element={<ServicesAdmin services={services} />}
           />
           {/*check */}
-          <Route path="/services/user/" element={<Services user={user} />} />
+          <Route path="/services/user/" element={<Services user={user} />} />{/*check */}
           <Route
             path="/services/car/:carId"
             element={<Services user={user} />}
-          />
+          />{/*check */}
         </Routes>
       </BrowserRouter>
       <ToastContainer />
