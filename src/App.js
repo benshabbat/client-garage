@@ -27,18 +27,15 @@ function App() {
   const { services, cars, users } = useSelector((state) => state.admin);
   const dispatch = useDispatch();
   useEffect(() => {
-    if (userAuth && user?._id) {
-      dispatch(getMessagesByIdUser(user?._id));
-      dispatch(getCarsByIdUser(user?._id));
-    } else if (userAuth?._id) dispatch(getUser(userAuth?._id));
-  }, [userAuth, user?._id, user?.isAdmin]);
+    if (userAuth?._id) dispatch(getUser(userAuth?._id));
+  }, [userAuth]);
   return (
     <>
       <BrowserRouter>
         <Header userAuth={userAuth} user={user} />
         <Routes>
           <Route path="/" element={<PageLanding />} />
-          <Route path="/account" element={<Account user={user} />} />
+          <Route path="/account" element={<Account user={user} />} />{/*check */}
           <Route path="/users" element={<Users users={users} />} /> {/*check */}
           <Route
             path="/cars"

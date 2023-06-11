@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/auth/authSlice";
 import { Form, OpenModel } from "..";
-
 const Login = ({ handelClick, isOpen }) => {
   const [formData, setFormData] = useState();
   const dispatch = useDispatch();
