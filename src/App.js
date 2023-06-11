@@ -19,8 +19,6 @@ import {
   resetUser,
 } from "./features/user/userSlice";
 import {
-  getCarsByType,
-  getUsers,
   getServicesByType,
 } from "./features/admin/adminSlice";
 import { ToastContainer } from "react-toastify";
@@ -34,8 +32,6 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     if (userAuth && user?.isAdmin) {
-      // dispatch(getCarsByType(user?._id));
-      dispatch(getUsers());
       dispatch(getServicesByType());
     }
     if (userAuth && user?._id) {
@@ -50,8 +46,8 @@ function App() {
         <Routes>
           <Route path="/" element={<PageLanding />} />
           <Route path="/account" element={<Account user={user} />} />
-          <Route path="/users" element={<Users users={users} />} />
-          <Route path="/cars" element={<Cars userId={user?._id} cars={cars} />} />
+          <Route path="/users" element={<Users users={users} />} /> {/*check */}
+          <Route path="/cars" element={<Cars userId={user?._id} cars={cars} />} /> {/*check */}
           <Route
             path="/messages"
             element={<Messages messages={messages} user={user} users={users}/>}

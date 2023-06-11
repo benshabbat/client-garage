@@ -1,16 +1,20 @@
 import "../components/table/table.css";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useOpenModel from "../hooks/useOpenModel";
 import ManageUser from "../components/manage/ManageUser";
 import { Register } from "../components";
-
+import { useDispatch } from "react-redux";
+import { getUsers } from "../features/admin/adminSlice";
 const Users = ({ users = null }) => {
   const [user, setUser] = useState();
   const [handleManageUser, isOpenManageUser] = useOpenModel();
   const [handleCreateUser, isOpenCreateUser] = useOpenModel();
   // const [data, setData] = useState(false)
   const [filterUsers, setFilterUsers] = useState();
-  
+    const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUsers());
+  }, []);
   const filterSearch = (e) => {
     const { value } = e.target;
     setFilterUsers(
