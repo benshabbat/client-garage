@@ -11,7 +11,8 @@ const Cars = ({ userId, cars = null }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCarsByType(userId));
-  }, []);
+    console.log("check")
+  }, [isOpenManageCar]);
   const filterSearch = (e) => {
     const { value } = e.target;
     setFilterCars(

@@ -13,12 +13,8 @@ const Header = ({ userAuth = null, user = null }) => {
           <div className="logo">
             <Link to="/">Garage770</Link>
           </div>
-          {console.log(user?.isAdmin)}
-          {console.log(userAuth)}
           <div>
-            {userAuth === null &&
-            <NavLanding />
-            }
+            {userAuth === null && <NavLanding />}
             {user?.isAdmin !== undefined && (
               <>
                 {user?.isAdmin && <NavAdmin />}
