@@ -1,7 +1,5 @@
 import "./manage.css";
 import React from "react";
-import { useDispatch } from "react-redux";
-import { getCars } from "../../features/admin/adminSlice";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CreateService from "../create/CreateService";
 import { deleteCar } from "../../Utils";
@@ -15,7 +13,6 @@ const ManageCar = ({
 }) => {
   const [handleEditCar, isOpenModelEditCar] = useOpenModel();
   const [handleCreateService, isOpenModelCreateService] = useOpenModel();
-  const dispatch = useDispatch();
 
   const handleCar = async (e) => {
     e.preventDefault();

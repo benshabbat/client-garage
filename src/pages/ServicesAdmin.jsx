@@ -11,7 +11,7 @@ const ServicesAdmin = ({ services }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getServicesByType());
-  }, []);
+  }, [isOpenService]);
   const filterSearch = (e) => {
     const { value } = e.target;
 
