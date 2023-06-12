@@ -5,7 +5,7 @@ const EditCar = ({ handelClick, isOpen, car }) => {
   const [formData, setFormData] = useState(car);
   const onSubmit = async (e) => {
     e.preventDefault();
-    await updateCar(car?._id,formData);
+    await updateCar(car?._id, formData);
     handelClick();
   };
 
@@ -29,7 +29,7 @@ const EditCar = ({ handelClick, isOpen, car }) => {
               name: "km",
               type: "number",
               value: formData?.km,
-              min: formData?.km,
+              min: car?.km,
             },
             { name: "brand", type: "text", value: formData?.brand },
           ]}
