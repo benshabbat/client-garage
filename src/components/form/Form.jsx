@@ -23,6 +23,7 @@ const Form = ({
 
   return (
     <form className="form" onSubmit={onSubmit}>
+      
       {handelClick && (
         <CancelIcon onClick={handelClick} className="form-close" />
       )}

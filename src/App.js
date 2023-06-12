@@ -15,7 +15,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUser } from "./features/user/userSlice";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import CheckFormWithPattern from "./components/CheckFormWithPattern";
 function App() {
   const { user: userAuth } = useSelector((state) => state.auth);
   const { messages, user } = useSelector((state) => state.user);
@@ -27,9 +27,11 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Header userAuth={userAuth} user={user} />{/*check */}
+        <Header userAuth={userAuth} user={user} />
+        {/*check */}
         <Routes>
           <Route path="/" element={<PageLanding />} />
+          <Route path="/check" element={<CheckFormWithPattern />} />
           <Route path="/account" element={<Account user={user} />} />
           {/*check */}
           <Route path="/users" element={<Users users={users} />} /> {/*check */}
@@ -48,11 +50,13 @@ function App() {
             element={<ServicesAdmin services={services} />}
           />
           {/*check */}
-          <Route path="/services/user/" element={<Services user={user} />} />{/*check */}
+          <Route path="/services/user/" element={<Services user={user} />} />
+          {/*check */}
           <Route
             path="/services/car/:carId"
             element={<Services user={user} />}
-          />{/*check */}
+          />
+          {/*check */}
         </Routes>
       </BrowserRouter>
       <ToastContainer />
