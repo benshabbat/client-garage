@@ -5,8 +5,14 @@ const CreateCar = ({ handelClick, isOpen, user }) => {
   const [formData, setFormData] = useState();
   const onSubmit = async (e) => {
     e.preventDefault();
-    await createCar(user?._id, formData);
+    isValidCar(formData?.numberPlate)? await createCar(user?._id, formData): console.log("ERROR")
     handelClick();
+  };
+  const isValidCar = (data) => {
+    if (data?.length <= 8 && data?.length >= 7 && +data) {
+      return true;
+    }
+    return false;
   };
 
   return (
@@ -20,11 +26,12 @@ const CreateCar = ({ handelClick, isOpen, user }) => {
             {
               name: "numberPlate",
               type: "text",
-              pattern:
-                "[0-9]{3}[-][0-9]{2}[-][0-9]{3}|[0-9]{2}[-][0-9]{3}[-][0-9]{2}|[0-9]{7,8}",
+              // pattern:
+              //   "[0-9]{3}[-][0-9]{2}[-][0-9]{3}|[0-9]{2}[-][0-9]{3}[-][0-9]{2}|[0-9]{7,8}",
               title: "Number of car must 00-000-00 OR 000-00-000",
+              
             },
-            { name: "km", type: "number" ,min:0},
+            { name: "km", type: "number", min: 0 },
             { name: "brand", type: "text" },
           ]}
           handelClick={handelClick}

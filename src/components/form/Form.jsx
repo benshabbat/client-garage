@@ -11,10 +11,10 @@ const Form = ({
   setData,
   options = null,
   nameSelect,
-  isFocus=true
+  isFocus = true,
 }) => {
   const handleChange = (e) => {
-    const { name, value, checked, type,  } = e.target;
+    const { name, value, checked, type } = e.target;
     setData((prevState) => ({
       ...prevState,
       [name]: type === "checkbox" ? checked : value,
@@ -23,7 +23,6 @@ const Form = ({
 
   return (
     <form className="form" onSubmit={onSubmit}>
-      
       {handelClick && (
         <CancelIcon onClick={handelClick} className="form-close" />
       )}
@@ -53,6 +52,7 @@ const Form = ({
           <label key={index} className="form-label">
             {!i.hidden && <span>{i?.name}</span>}
             <input
+              pattern={i?.pattern}
               autoFocus={index === 0 && isFocus}
               placeholder={i?.name}
               type={i?.type}
@@ -60,7 +60,6 @@ const Form = ({
               value={i?.value}
               checked={i?.checked}
               min={i?.min}
-              pattern={i?.pattern}
               title={i?.title}
               hidden={i?.hidden}
               onChange={handleChange}
