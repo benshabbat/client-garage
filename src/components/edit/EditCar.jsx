@@ -5,40 +5,40 @@ const EditCar = ({ handelClick, isOpen, car }) => {
   const [formData, setFormData] = useState(car);
   const onSubmit = async (e) => {
     e.preventDefault();
-    await updateCar(car?._id, formData)
-  
+    isValidCar(formData)?await updateCar(car?._id, formData):console.log("ERROR");
+
     handelClick();
   };
-  // const isValidCar = (data) => {
-  //   // debugger;
-  //   if (data?.length === 10 || data?.length === 9) {
-  //     for (let i = 0; i < data.length; i++) {
-  //       if ((i === 2 || i === 6) && data[i] === "-" && data?.length === 9) {
-  //         i++;
-  //       }
-  //       if (+data[i]) {
-  //         return true;
-  //       } else if (
-  //         (i === 3 || i === 6) &&
-  //         data[i] === "-" &&
-  //         data?.length === 10
-  //       ) {
-  //         i++;
-  //       }
-  //       if (+data[i]) {
-  //         return true;
-  //       } else {
-  //         return false;
-  //       }
-  //     }
-  //   }
+  const isValidCar = (data) => {
+    // debugger;
+    if (data?.length === 10 || data?.length === 9) {
+      for (let i = 0; i < data.length; i++) {
+        if (data?.length === 9) {
+          if ((i === 2 || i === 6) && data[i] === "-") {
+            i++;
+          }
+          if (+data[i]) {
+            return true;
+          }
+        } else if (data?.length === 10) {
+          if ((i === 3 || i === 6) && data[i] === "-") {
+            i++;
+          }
+          if (+data[i]) {
+            return true;
+          }
+        } else {
+          return false;
+        }
+      }
+    }
 
-  //   if (data?.length <= 8 && data?.length >= 7 && +data) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // };
+    if (data?.length <= 8 && data?.length >= 7 && +data) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   return (
     <OpenModel
