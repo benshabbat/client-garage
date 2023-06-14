@@ -5,7 +5,9 @@ const EditCar = ({ handelClick, isOpen, car }) => {
   const [formData, setFormData] = useState(car);
   const onSubmit = async (e) => {
     e.preventDefault();
-    isValidCar(formData)?await updateCar(car?._id, formData):console.log("ERROR");
+    isValidCar(formData)
+      ? await updateCar(car?._id, formData)
+      : console.log("ERROR");
 
     handelClick();
   };
@@ -51,7 +53,7 @@ const EditCar = ({ handelClick, isOpen, car }) => {
             {
               name: "numberPlate",
               type: "text",
-              value: car?.numberPlate,
+              value: formData?.numberPlate,
               // pattern:
               //   "[0-9]{3}[-][0-9]{2}[-][0-9]{3}|[0-9]{2}[-][0-9]{3}[-][0-9]{2}|[0-9]{7,8}",
               title: "Number of car must 00-000-00 OR 000-00-000",
@@ -62,7 +64,7 @@ const EditCar = ({ handelClick, isOpen, car }) => {
               value: formData?.km,
               min: car?.km,
             },
-            { name: "brand", type: "text", value: car?.brand },
+            { name: "brand", type: "text", value: formData?.brand },
           ]}
           handelClick={handelClick}
           onSubmit={onSubmit}
