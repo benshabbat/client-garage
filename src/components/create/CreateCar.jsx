@@ -1,43 +1,15 @@
 import { useState } from "react";
 import { OpenModel, Form } from "..";
 import { createCar } from "../../Utils";
+import useValidCar from "../../hooks/useValidCar";
 const CreateCar = ({ handelClick, isOpen, user }) => {
   const [formData, setFormData] = useState();
   const onSubmit = async (e) => {
     e.preventDefault();
-    isValidCar(formData?.numberPlate)? await createCar(user?._id, formData): console.log("ERROR")
+    isValidCar? await createCar(user?._id, formData): console.log("ERROR")
     handelClick();
   };
-  const isValidCar = (data) => {
-    // debugger;
-    if (data?.length === 10 || data?.length === 9) {
-      for (let i = 0; i < data.length; i++) {
-        if (data?.length === 9) {
-          if ((i === 2 || i === 6) && data[i] === "-") {
-            i++;
-          }
-          if (+data[i]) {
-            return true;
-          }
-        } else if (data?.length === 10) {
-          if ((i === 3 || i === 6) && data[i] === "-") {
-            i++;
-          }
-          if (+data[i]) {
-            return true;
-          }
-        } else {
-          return false;
-        }
-      }
-    }
-
-    if (data?.length <= 8 && data?.length >= 7 && +data) {
-      return true;
-    } else {
-      return false;
-    }
-  };
+  const isValidCar = useValidCar(formData?.numberPlate);
 
 
   return (
