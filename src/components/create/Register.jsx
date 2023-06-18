@@ -1,24 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 // import { register } from "../../features/auth/authSlice";
 import { createUser } from "../../Utils";
 import { Form, OpenModel } from "..";
-import { useSelector } from "react-redux";
 import useValidPhone from "../../hooks/useValidPhone";
+import useValidUser from "../../hooks/useValidUser";
 const Register = ({ handelClick, isOpen }) => {
-  const { isError, message } = useSelector((state) => state.auth);
   const [formData, setFormData] = useState();
   const isValidPhone = useValidPhone(formData?.phone);
+  const isValidUser = useValidUser(formData?.username);
   const onSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
-    if (isValidPhone) {
+    if (isValidPhone&&isValidUser) {
       await createUser(formData);
       handelClick();
     }
   };
-  useEffect(() => {
-    console.log(isError);
-  }, [isError, message]);
   return (
     <OpenModel
       comp={
@@ -30,7 +27,8 @@ const Register = ({ handelClick, isOpen }) => {
             {
               name: "username",
               type: "text",
-
+              errorMessage: "Username is exist",
+              isError:(!isValidUser),
             },
             { name: "email", type: "email" },
             {
