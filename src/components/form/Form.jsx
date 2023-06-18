@@ -51,6 +51,7 @@ const Form = ({
         return (
           <label key={index} className="form-label">
             {!i.hidden && <span>{i?.name}</span>}
+            {i?.isError && <span className="error">{i?.errorMessage}</span>}
             <input
               pattern={i?.pattern}
               autoFocus={index === 0 && isFocus}

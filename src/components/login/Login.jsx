@@ -1,17 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/auth/authSlice";
 import { Form, OpenModel } from "..";
+import { useSelector } from "react-redux";
 const Login = ({ handelClick, isOpen }) => {
+  const { isError, message } = useSelector((state) => state.auth);
   const [formData, setFormData] = useState();
   const dispatch = useDispatch();
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData)
+    console.log(formData);
     dispatch(login(formData));
-    handelClick();
   };
-
+  useEffect(() => {
+  console.log(isError);
+  }, [isError, message]);
   return (
     <OpenModel
       comp={
@@ -20,8 +23,8 @@ const Login = ({ handelClick, isOpen }) => {
           title="Login"
           sec_title="enter your name & password"
           inputs={[
-            { name: "username", type: "text" },
-            { name: "password", type: "password" },
+            { name: "username", type: "text" ,errorMessage:"Your username or password is wrong", isError},
+            { name: "password", type: "password" ,errorMessage:"Your username or password is wrong", isError},
           ]}
           handelClick={handelClick}
           onSubmit={onSubmit}
