@@ -6,6 +6,7 @@ import useValidCar from "../../hooks/useValidCar";
 const CreateCar = ({ handelClick, isOpen, user }) => {
   const [formData, setFormData] = useState();
 
+  const isValidCar = useValidCar(formData?.numberPlate);
   const onSubmit = async (e) => {
     e.preventDefault();
     if (isValidCar) {
@@ -13,7 +14,6 @@ const CreateCar = ({ handelClick, isOpen, user }) => {
       handelClick();
     } else console.log("ERROR");
   };
-  const isValidCar = useValidCar(formData?.numberPlate);
 
   return (
     <OpenModel

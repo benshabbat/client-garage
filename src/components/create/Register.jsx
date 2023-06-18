@@ -1,21 +1,24 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 // import { register } from "../../features/auth/authSlice";
 import { createUser } from "../../Utils";
-import { getUsers } from "../../features/admin/adminSlice";
 import { Form, OpenModel } from "..";
-
+import { useSelector } from "react-redux";
+import useValidPhone from "../../hooks/useValidPhone";
 const Register = ({ handelClick, isOpen }) => {
+  const { isError, message } = useSelector((state) => state.auth);
   const [formData, setFormData] = useState();
-  const dispatch = useDispatch();
+  const isValidPhone = useValidPhone(formData?.phone);
   const onSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
-    await createUser(formData);
-    handelClick();
-    dispatch(getUsers());
+    if (isValidPhone) {
+      await createUser(formData);
+      handelClick();
+    }
   };
-
+  useEffect(() => {
+    console.log(isError);
+  }, [isError, message]);
   return (
     <OpenModel
       comp={
@@ -24,13 +27,19 @@ const Register = ({ handelClick, isOpen }) => {
           title="Create User"
           sec_title="enter your name & password"
           inputs={[
-            { name: "username", type: "text" },
+            {
+              name: "username",
+              type: "text",
+
+            },
             { name: "email", type: "email" },
             {
               name: "phone",
               type: "text",
               pattern: "[0-9]{3}[-][0-9]{7}|[0-9]{10}",
               title: "Number of phone must 050-1234567",
+              errorMessage: "Your phone number is wrong",
+              isError:(!isValidPhone),
             },
             {
               name: "password",
