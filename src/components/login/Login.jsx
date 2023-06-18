@@ -13,7 +13,7 @@ const Login = ({ handelClick, isOpen }) => {
     dispatch(login(formData));
   };
   useEffect(() => {
-  console.log(isError);
+    console.log(isError);
   }, [isError, message]);
   return (
     <OpenModel
@@ -23,8 +23,16 @@ const Login = ({ handelClick, isOpen }) => {
           title="Login"
           sec_title="enter your name & password"
           inputs={[
-            { name: "username", type: "text" ,errorMessage:"Your username or password is wrong", isError},
-            { name: "password", type: "password" ,errorMessage:"Your username or password is wrong", isError},
+            {
+              name: "username",
+              type: "text",
+              errorMessage: "Your username or password is wrong",
+              isError,
+            },
+            {
+              name: "password",
+              type: "password",
+            },
           ]}
           handelClick={handelClick}
           onSubmit={onSubmit}
