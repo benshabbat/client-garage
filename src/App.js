@@ -16,6 +16,7 @@ import { getUser } from "./features/user/userSlice";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CheckFormWithPattern from "./components/CheckFormWithPattern";
+import PageNotFound from "./components/pageNotFound/PageNotFound";
 function App() {
   const { user: userAuth } = useSelector((state) => state.auth);
   const { messages, user } = useSelector((state) => state.user);
@@ -28,35 +29,30 @@ function App() {
     <>
       <BrowserRouter>
         <Header userAuth={userAuth} user={user} />
-        {/*check */}
+
         <Routes>
           <Route path="/" element={<PageLanding />} />
           <Route path="/check" element={<CheckFormWithPattern />} />
           <Route path="/account" element={<Account user={user} />} />
-          {/*check */}
-          <Route path="/users" element={<Users users={users} />} /> {/*check */}
+          <Route path="/users" element={<Users users={users} />} />
           <Route
             path="/cars"
             element={<Cars userId={user?._id} cars={cars} />}
           />
-          {/*check */}
           <Route
             path="/messages"
             element={<Messages messages={messages} user={user} users={users} />}
           />
-          {/*check */}
           <Route
             path="/services"
             element={<ServicesAdmin services={services} />}
           />
-          {/*check */}
           <Route path="/services/user/" element={<Services user={user} />} />
-          {/*check */}
           <Route
             path="/services/car/:carId"
             element={<Services user={user} />}
           />
-          {/*check */}
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer />

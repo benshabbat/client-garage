@@ -1,6 +1,7 @@
 import React from "react";
 import Login from "../login/Login";
 import useOpenModel from "../../hooks/useOpenModel";
+import { Link } from "react-router-dom";
 const NavLanding = () => {
   const [ 
     handelLogin,
@@ -9,7 +10,7 @@ const NavLanding = () => {
   return (
     <>
       <div className="item-nav">
-        <a href="#home">Home</a>
+        <Link to="#home">Home</Link>
       </div>
       <div className="item-nav">
         <a href="#reviews">Reviews</a>
