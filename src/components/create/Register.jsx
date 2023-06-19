@@ -1,13 +1,12 @@
 import { useState } from "react";
-// import { register } from "../../features/auth/authSlice";
 import { createUser } from "../../Utils";
 import { Form, OpenModel } from "..";
 import useValidPhone from "../../hooks/useValidPhone";
 import useValidUser from "../../hooks/useValidUser";
 const Register = ({ handelClick, isOpen }) => {
   const [formData, setFormData] = useState();
-  const isValidPhone = useValidPhone(formData?.phone);
   const isValidUser = useValidUser(formData?.username);
+  const isValidPhone = useValidPhone(formData?.phone);
   const onSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
@@ -16,6 +15,7 @@ const Register = ({ handelClick, isOpen }) => {
       handelClick();
     }
   };
+  
   return (
     <OpenModel
       comp={
