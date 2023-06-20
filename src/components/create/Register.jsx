@@ -1,21 +1,27 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { createUser } from "../../Utils";
 import { Form, OpenModel } from "..";
-import useValidPhone from "../../hooks/useValidPhone";
-import useValidUser from "../../hooks/useValidUser";
+import ValidPhone from "../../validation/ValidPhone";
+
 const Register = ({ handelClick, isOpen }) => {
+  const { users } = useSelector((state) => state?.admin);
   const [formData, setFormData] = useState();
-  const isValidUser = useValidUser(formData?.username);
-  const isValidPhone = useValidPhone(formData?.phone);
+  const [isValidPhone, setIsValidPhone] = useState(true);
+  const [isValidUser, setIsValidUser] = useState(false);
+
   const onSubmit = async (e) => {
     e.preventDefault();
+    setIsValidPhone(ValidPhone(formData?.phone));
+    setIsValidUser(users.map(user => user.username).includes(formData?.username))
+    console.log(users);
     console.log(formData);
-    if (isValidPhone&&isValidUser) {
+    if (isValidPhone && !isValidUser) {
       await createUser(formData);
       handelClick();
     }
   };
-  
+
   return (
     <OpenModel
       comp={
@@ -28,7 +34,7 @@ const Register = ({ handelClick, isOpen }) => {
               name: "username",
               type: "text",
               errorMessage: "Username is exist",
-              isError:(!isValidUser),
+              isError: isValidUser,
             },
             { name: "email", type: "email" },
             {
@@ -37,7 +43,7 @@ const Register = ({ handelClick, isOpen }) => {
               pattern: "[0-9]{3}[-][0-9]{7}|[0-9]{10}",
               title: "Number of phone must 050-1234567",
               errorMessage: "Your phone number is wrong",
-              isError:(!isValidPhone),
+              isError: !isValidPhone,
             },
             {
               name: "password",

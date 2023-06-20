@@ -1,8 +1,9 @@
-const useValidPhone = (data) => {
+
+const ValidPhone = (data) => {
     // debugger;
-    if (data?.length === 10 ) {
+    if (data?.length === 11 ) {
       for (let i = 0; i < data.length; i++) {
-       if (data?.length === 10) {
+       if (data?.length === 11) {
           if (i === 3 && data[i] === "-") {
             i++;
           }
@@ -21,4 +22,4 @@ const useValidPhone = (data) => {
       return false;
     }
   };
-  export default useValidPhone;
+  export default ValidPhone;
