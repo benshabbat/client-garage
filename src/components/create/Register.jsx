@@ -13,9 +13,9 @@ const Register = ({ handelClick, isOpen }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     setIsValidPhone(ValidPhone(formData?.phone));
-    setIsValidUser(users.map(user => user.username).includes(formData?.username))
-    console.log(users);
-    console.log(formData);
+    setIsValidUser(
+      users.map((user) => user.username).includes(formData?.username)
+    );
     if (isValidPhone && !isValidUser) {
       await createUser(formData);
       handelClick();

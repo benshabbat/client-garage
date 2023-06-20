@@ -1,5 +1,5 @@
-const useValidCar = (data) => {
-  // debugger;
+const ValidCar = (data) => {
+  //  debugger;
   if (data?.length === 10 || data?.length === 9) {
     for (let i = 0; i < data.length; i++) {
       if (data?.length === 9) {
@@ -22,10 +22,12 @@ const useValidCar = (data) => {
     }
   }
 
-  if (data?.length <= 8 && data?.length >= 7 && +data) {
+  else if (data?.length <= 8 && data?.length >= 7 && +data) {
     return true;
-  } else {
+  } 
+  else {
     return false;
   }
+  
 };
-export default useValidCar;
+export default ValidCar;

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Form, OpenModel } from "../index";
 import { updateCar } from "../../Utils";
-import useValidCar from "../../hooks/useValidCar";
+import useValidCar from "../../validation/ValidCar";
 const EditCar = ({ handelClick, isOpen, car }) => {
   const [formData, setFormData] = useState(car);
   const onSubmit = async (e) => {
