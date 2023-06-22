@@ -44,6 +44,7 @@ const Register = ({ handelClick, isOpen }) => {
               title: "Number of phone must 050-1234567",
               errorMessage: "Your phone number is wrong",
               isError: !isValidPhone,
+              value:formData?.phone
             },
             {
               name: "password",

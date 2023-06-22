@@ -4,7 +4,11 @@ import { createCar } from "../../Utils";
 import ValidCar from "../../validation/ValidCar";
 
 const CreateCar = ({ handelClick, isOpen, user }) => {
-  const [formData, setFormData] = useState();
+  const [formData, setFormData] = useState({
+    numberPlate: "",
+    km: "",
+    brand: "",
+  });
   const [isValidCar, setIsValidCar] = useState(true);
 
   const onSubmit = async (e) => {
@@ -33,8 +37,9 @@ const CreateCar = ({ handelClick, isOpen, user }) => {
             {
               name: "numberPlate",
               type: "text",
-              // pattern:
-              //   "[0-9]{3}[-][0-9]{2}[-][0-9]{3}|[0-9]{2}[-][0-9]{3}[-][0-9]{2}|[0-9]{7,8}",
+              value: formData?.numberPlate,
+              pattern:
+                "[0-9]{3}[-][0-9]{2}[-][0-9]{3}|[0-9]{2}[-][0-9]{3}[-][0-9]{2}|[0-9]{7,8}",
               title: "Number of car must 00-000-00 OR 000-00-000",
               errorMessage: "Your Car numer is wrong",
               isError: !isValidCar,
