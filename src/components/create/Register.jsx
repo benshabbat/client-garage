@@ -40,11 +40,11 @@ const Register = ({ handelClick, isOpen }) => {
             {
               name: "phone",
               type: "text",
-              pattern: "[0-9]{3}[-][0-9]{7}|[0-9]{10}",
+              pattern: /^[0-9]{3}[-][0-9]{7}|[0-9]{10}$/,
               title: "Number of phone must 050-1234567",
               errorMessage: "Your phone number is wrong",
               isError: !isValidPhone,
-              value:formData?.phone
+              // value:formData?.phone
             },
             {
               name: "password",
