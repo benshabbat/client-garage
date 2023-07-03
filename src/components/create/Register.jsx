@@ -1,18 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { createUser } from "../../Utils";
 import { Form, OpenModel } from "..";
-import ValidPhone from "../../validation/ValidPhone";
-
 const Register = ({ handelClick, isOpen }) => {
+
+  const PHONE_REGEX = /^[0-9]{3}[-][0-9]{7}|[0-9]{10}$/;
   const { users } = useSelector((state) => state?.admin);
   const [formData, setFormData] = useState();
-  const [isValidPhone, setIsValidPhone] = useState(true);
+  const [isValidPhone, setIsValidPhone] = useState(false);
   const [isValidUser, setIsValidUser] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    setIsValidPhone(ValidPhone(formData?.phone));
+ 
     setIsValidUser(
       users.map((user) => user.username).includes(formData?.username)
     );
@@ -21,6 +21,10 @@ const Register = ({ handelClick, isOpen }) => {
       handelClick();
     }
   };
+  useEffect(() => {
+    const result = PHONE_REGEX.test(formData?.phone);
+    setIsValidPhone(result);
+  }, [formData?.phone]);
 
   return (
     <OpenModel
@@ -40,7 +44,7 @@ const Register = ({ handelClick, isOpen }) => {
             {
               name: "phone",
               type: "text",
-              pattern: /^[0-9]{3}[-][0-9]{7}|[0-9]{10}$/,
+              invalid: isValidPhone ? "true" : "false",
               title: "Number of phone must 050-1234567",
               errorMessage: "Your phone number is wrong",
               isError: !isValidPhone,

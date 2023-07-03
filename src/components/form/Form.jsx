@@ -64,7 +64,9 @@ const Form = ({
               title={i?.title}
               hidden={i?.hidden}
               onChange={handleChange}
+              aria-invalid={i?.invalid}
               required={i?.type !== "checkbox" ? true : false}
+
             />
           </label>
         );
