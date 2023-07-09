@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { createUser } from "../../Utils";
 import { Form, OpenModel } from "..";
 const Register = ({ handelClick, isOpen }) => {
-
   const PHONE_REGEX = /^[0-9]{3}[-][0-9]{7}|[0-9]{10}$/;
   const { users } = useSelector((state) => state?.admin);
   const [formData, setFormData] = useState();
@@ -12,7 +11,6 @@ const Register = ({ handelClick, isOpen }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
- 
     setIsValidUser(
       users.map((user) => user.username).includes(formData?.username)
     );
@@ -22,8 +20,10 @@ const Register = ({ handelClick, isOpen }) => {
     }
   };
   useEffect(() => {
-    const result = PHONE_REGEX.test(formData?.phone);
-    setIsValidPhone(result);
+    if ((formData?.phone.length === 10 && +formData.phone) || (formData?.phone.length === 11 && formData.phone.at(3)==="-")) {
+      const result = PHONE_REGEX.test(formData?.phone);
+      setIsValidPhone(result);
+    } else setIsValidPhone(false);
   }, [formData?.phone]);
 
   return (
@@ -44,7 +44,7 @@ const Register = ({ handelClick, isOpen }) => {
             {
               name: "phone",
               type: "text",
-              invalid: isValidPhone ? "true" : "false",
+              invalid: isValidPhone,
               title: "Number of phone must 050-1234567",
               errorMessage: "Your phone number is wrong",
               isError: !isValidPhone,
