@@ -4,11 +4,16 @@ import { createUser } from "../../Utils";
 import { Form, OpenModel } from "..";
 const Register = ({ handelClick, isOpen }) => {
   const PHONE_REGEX = /^[0-9]{3}[-][0-9]{7}|[0-9]{10}$/;
+  const EMAIL_REGEX = /^[0-9]{3}[-][0-9]{7}|[0-9]{10}$/;
+  const PASS_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
   const { users } = useSelector((state) => state?.admin);
   const [formData, setFormData] = useState();
   const [isValidPhone, setIsValidPhone] = useState(false);
   const [isValidUser, setIsValidUser] = useState(false);
-  const [isBlur, setIsBlur] = useState(false);
+  const [isValidEmail, setIsValidEmail] = useState(false);
+  const [isValidPass, setIsValidPass] = useState(false);
+  const [isBlurPhone, setIsBlurPhone] = useState(false);
+  const [isBlurPass, setIsBlurPass] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -21,11 +26,17 @@ const Register = ({ handelClick, isOpen }) => {
     }
   };
   useEffect(() => {
-    if ((formData?.phone.length === 10 && +formData.phone) || (formData?.phone.length === 11 && formData.phone.at(3)==="-")) {
-      const result = PHONE_REGEX.test(formData?.phone);
-      setIsValidPhone(result);
+    if (
+      (formData?.phone.length === 10 && +formData.phone) ||
+      (formData?.phone.length === 11 && formData.phone.at(3) === "-")
+    ) {
+      setIsValidPhone(PHONE_REGEX.test(formData?.phone));
     } else setIsValidPhone(false);
   }, [formData?.phone]);
+
+  useEffect(() => {
+    setIsValidPass(PASS_REGEX.test(formData?.password));
+  }, [formData?.password]);
 
   return (
     <OpenModel
@@ -48,15 +59,24 @@ const Register = ({ handelClick, isOpen }) => {
               invalid: isValidPhone,
               title: "Number of phone must 050-1234567",
               errorMessage: "Your phone number is wrong",
-              isError: isBlur && !isValidPhone,
-              onBlur: () => {setIsBlur(true)}
+              isError: isBlurPhone && !isValidPhone,
+              onBlur: () => {
+                setIsBlurPhone(true);
+              },
               // value:formData?.phone
             },
             {
               name: "password",
               type: "password",
               min: 8,
-              // title: "Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters",
+              invalid: isValidPass,
+              isError: isBlurPass && !isValidPass,
+              onBlur: () => {
+                setIsBlurPass(true);
+              },
+              title:
+              "Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters",
+              errorMessage: "Your password is wrong",
               // pattern:"(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             },
           ]}
