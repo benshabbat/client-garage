@@ -8,6 +8,7 @@ const Register = ({ handelClick, isOpen }) => {
   const [formData, setFormData] = useState();
   const [isValidPhone, setIsValidPhone] = useState(false);
   const [isValidUser, setIsValidUser] = useState(false);
+  const [isBlur, setIsBlur] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -47,7 +48,8 @@ const Register = ({ handelClick, isOpen }) => {
               invalid: isValidPhone,
               title: "Number of phone must 050-1234567",
               errorMessage: "Your phone number is wrong",
-              isError: !isValidPhone,
+              isError: isBlur && !isValidPhone,
+              onBlur: () => {setIsBlur(true)}
               // value:formData?.phone
             },
             {
