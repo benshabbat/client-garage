@@ -4,15 +4,19 @@ import { createUser } from "../../Utils";
 import { Form, OpenModel } from "..";
 const Register = ({ handelClick, isOpen }) => {
   const PHONE_REGEX = /^[0-9]{3}[-][0-9]{7}|[0-9]{10}$/;
-  const EMAIL_REGEX = /^[0-9]{3}[-][0-9]{7}|[0-9]{10}$/;
+  const EMAIL_REGEX =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const PASS_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
   const { users } = useSelector((state) => state?.admin);
   const [formData, setFormData] = useState();
+
   const [isValidPhone, setIsValidPhone] = useState(false);
   const [isValidUser, setIsValidUser] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isValidPass, setIsValidPass] = useState(false);
+
   const [isBlurPhone, setIsBlurPhone] = useState(false);
+  const [isBlurEmail, setIsBlurEmail] = useState(false);
   const [isBlurPass, setIsBlurPass] = useState(false);
 
   const onSubmit = async (e) => {
@@ -20,7 +24,7 @@ const Register = ({ handelClick, isOpen }) => {
     setIsValidUser(
       users.map((user) => user.username).includes(formData?.username)
     );
-    if (isValidPhone && !isValidUser) {
+    if (isValidPhone && !isValidUser&&isValidEmail && isValidPass) {
       await createUser(formData);
       handelClick();
     }
@@ -38,6 +42,10 @@ const Register = ({ handelClick, isOpen }) => {
     setIsValidPass(PASS_REGEX.test(formData?.password));
   }, [formData?.password]);
 
+  useEffect(() => {
+    setIsValidEmail(EMAIL_REGEX.test(formData?.email));
+  }, [formData?.email]);
+
   return (
     <OpenModel
       comp={
@@ -52,7 +60,17 @@ const Register = ({ handelClick, isOpen }) => {
               errorMessage: "Username is exist",
               isError: isValidUser,
             },
-            { name: "email", type: "email" },
+            {
+              name: "email",
+              type: "email",
+              invalid: isValidEmail,
+              title: "regex@gmail.com",
+              isError: isBlurEmail && !isValidEmail,
+              onBlur: () => {
+                setIsBlurEmail(true);
+              },
+              errorMessage: "Your Email is wrong",
+            },
             {
               name: "phone",
               type: "text",
@@ -75,7 +93,7 @@ const Register = ({ handelClick, isOpen }) => {
                 setIsBlurPass(true);
               },
               title:
-              "Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters",
+                "Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters",
               errorMessage: "Your password is wrong",
               // pattern:"(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             },
