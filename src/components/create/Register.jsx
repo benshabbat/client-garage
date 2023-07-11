@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { createUser } from "../../Utils";
 import { Form, OpenModel } from "..";
-import useValid from "../../hooks/useValid";
+
 
 const Register = ({ handelClick, isOpen }) => {
   const PHONE_REGEX = /^[0-9]{3}[-][0-9]{7}|[0-9]{10}$/;
@@ -11,9 +11,9 @@ const Register = ({ handelClick, isOpen }) => {
   const PASS_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
   const { users } = useSelector((state) => state?.admin);
   const [formData, setFormData] = useState();
-  const [isValidPhone,setIsValidPhone,onBlurPhone]=useValid()
-  const [isValidEmail,setIsValidEmail,onBlurEmail]=useValid()
-  const [isValidPass,setIsValidPass,onBlurPass]=useValid()
+  const [isValidPhone,setIsValidPhone]=useState(false)
+  const [isValidEmail,setIsValidEmail]=useState(false)
+  const [isValidPass,setIsValidPass]=useState(false)
   
   const [isValidUser, setIsValidUser] = useState(false);
 
@@ -63,7 +63,6 @@ const Register = ({ handelClick, isOpen }) => {
               invalid: isValidEmail,
               title: "regex@gmail.com",
               isError:  !isValidEmail,
-              onBlur: onBlurEmail,
               errorMessage: "Your Email is wrong",
             },
             {
@@ -72,8 +71,6 @@ const Register = ({ handelClick, isOpen }) => {
               title: "Number of phone must 050-1234567",
               errorMessage: "Your phone number is wrong",
               isError: !isValidPhone,
-              onBlur: onBlurPhone,
-              // value:formData?.phone
             },
             {
               name: "password",
@@ -81,11 +78,9 @@ const Register = ({ handelClick, isOpen }) => {
               min: 8,
               invalid: isValidPass,
               isError:!isValidPass,
-              onBlur: onBlurPass,
               title:
                 "Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters",
               errorMessage: "Your password is wrong",
-              // pattern:"(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             },
           ]}
           handelClick={handelClick}
