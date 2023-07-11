@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { createUser } from "../../Utils";
 import { Form, OpenModel } from "..";
+import useValid from "../../hooks/useValid";
+
 const Register = ({ handelClick, isOpen }) => {
   const PHONE_REGEX = /^[0-9]{3}[-][0-9]{7}|[0-9]{10}$/;
   const EMAIL_REGEX =
@@ -9,15 +11,12 @@ const Register = ({ handelClick, isOpen }) => {
   const PASS_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
   const { users } = useSelector((state) => state?.admin);
   const [formData, setFormData] = useState();
+  const [isValidPhone,setIsValidPhone,onBlurPhone, isBlurPhone]=useValid()
+  const [isValidEmail,setIsValidEmail,onBlurEmail, isBlurEmail]=useValid()
+  const [isValidPass,setIsValidPass,onBlurPass, isBlurPass]=useValid()
 
-  const [isValidPhone, setIsValidPhone] = useState(false);
   const [isValidUser, setIsValidUser] = useState(false);
-  const [isValidEmail, setIsValidEmail] = useState(false);
-  const [isValidPass, setIsValidPass] = useState(false);
 
-  const [isBlurPhone, setIsBlurPhone] = useState(false);
-  const [isBlurEmail, setIsBlurEmail] = useState(false);
-  const [isBlurPass, setIsBlurPass] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -66,9 +65,7 @@ const Register = ({ handelClick, isOpen }) => {
               invalid: isValidEmail,
               title: "regex@gmail.com",
               isError: isBlurEmail && !isValidEmail,
-              onBlur: () => {
-                setIsBlurEmail(true);
-              },
+              onBlur: onBlurEmail,
               errorMessage: "Your Email is wrong",
             },
             {
@@ -78,9 +75,7 @@ const Register = ({ handelClick, isOpen }) => {
               title: "Number of phone must 050-1234567",
               errorMessage: "Your phone number is wrong",
               isError: isBlurPhone && !isValidPhone,
-              onBlur: () => {
-                setIsBlurPhone(true);
-              },
+              onBlur: onBlurPhone,
               // value:formData?.phone
             },
             {
@@ -89,9 +84,7 @@ const Register = ({ handelClick, isOpen }) => {
               min: 8,
               invalid: isValidPass,
               isError: isBlurPass && !isValidPass,
-              onBlur: () => {
-                setIsBlurPass(true);
-              },
+              onBlur: onBlurPass,
               title:
                 "Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters",
               errorMessage: "Your password is wrong",
