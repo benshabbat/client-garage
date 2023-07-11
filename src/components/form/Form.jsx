@@ -2,8 +2,6 @@ import "./form.css";
 import Input from "../input/Input";
 import CancelIcon from "@mui/icons-material/Cancel";
 
-
-
 const Form = ({
   title,
   sec_title,
@@ -54,7 +52,7 @@ const Form = ({
           <Input
             i={i}
             index={index}
-            key={index} 
+            key={index}
             handleChange={handleChange}
             isFocus={isFocus}
           />
