@@ -1,6 +1,8 @@
 import "./form.css";
-import React from "react";
+import Input from "../input/Input";
 import CancelIcon from "@mui/icons-material/Cancel";
+
+
 
 const Form = ({
   title,
@@ -49,28 +51,13 @@ const Form = ({
       )}
       {inputs.map((i, index) => {
         return (
-          <label key={index} className="form-label">
-            {!i.hidden && <span>{i?.name}</span>}
-            {i?.isError &&<span className="error">{i?.errorMessage}</span>}
-            <input
-              pattern={i?.pattern}
-              autoFocus={index === 0 && isFocus}
-              placeholder={i?.name}
-              type={i?.type}
-              name={i?.name}
-              value={i?.value}
-              checked={i?.checked}
-              min={i?.min}
-              title={i?.title}
-              hidden={i?.hidden}
-              onChange={handleChange}
-              aria-invalid={i?.invalid}
-              required={i?.type !== "checkbox" ? true : false}
-              autoComplete="off"
-              onBlur={i?.onBlur}
-              
-            />
-          </label>
+          <Input
+            i={i}
+            index={index}
+            key={index} 
+            handleChange={handleChange}
+            isFocus={isFocus}
+          />
         );
       })}
       <button type="submit" className="form-btn">

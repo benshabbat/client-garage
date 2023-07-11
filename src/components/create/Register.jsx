@@ -11,12 +11,11 @@ const Register = ({ handelClick, isOpen }) => {
   const PASS_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
   const { users } = useSelector((state) => state?.admin);
   const [formData, setFormData] = useState();
-  const [isValidPhone,setIsValidPhone,onBlurPhone, isBlurPhone]=useValid()
-  const [isValidEmail,setIsValidEmail,onBlurEmail, isBlurEmail]=useValid()
-  const [isValidPass,setIsValidPass,onBlurPass, isBlurPass]=useValid()
-
+  const [isValidPhone,setIsValidPhone,onBlurPhone]=useValid()
+  const [isValidEmail,setIsValidEmail,onBlurEmail]=useValid()
+  const [isValidPass,setIsValidPass,onBlurPass]=useValid()
+  
   const [isValidUser, setIsValidUser] = useState(false);
-
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -55,7 +54,6 @@ const Register = ({ handelClick, isOpen }) => {
           inputs={[
             {
               name: "username",
-              type: "text",
               errorMessage: "Username is exist",
               isError: isValidUser,
             },
@@ -64,17 +62,16 @@ const Register = ({ handelClick, isOpen }) => {
               type: "email",
               invalid: isValidEmail,
               title: "regex@gmail.com",
-              isError: isBlurEmail && !isValidEmail,
+              isError:  !isValidEmail,
               onBlur: onBlurEmail,
               errorMessage: "Your Email is wrong",
             },
             {
               name: "phone",
-              type: "text",
               invalid: isValidPhone,
               title: "Number of phone must 050-1234567",
               errorMessage: "Your phone number is wrong",
-              isError: isBlurPhone && !isValidPhone,
+              isError: !isValidPhone,
               onBlur: onBlurPhone,
               // value:formData?.phone
             },
@@ -83,7 +80,7 @@ const Register = ({ handelClick, isOpen }) => {
               type: "password",
               min: 8,
               invalid: isValidPass,
-              isError: isBlurPass && !isValidPass,
+              isError:!isValidPass,
               onBlur: onBlurPass,
               title:
                 "Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters",
