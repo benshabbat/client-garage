@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { Form, OpenModel } from "../index";
 import { updateCar } from "../../Utils";
-import useValidCar from "../../validation/ValidCar";
+
 const EditCar = ({ handelClick, isOpen, car }) => {
   const [formData, setFormData] = useState(car);
   const onSubmit = async (e) => {
-    e.preventDefault();
-    isValidCar
-      ? await updateCar(car?._id, formData)
-      : console.log("ERROR");
+    // e.preventDefault();
+    // isValidCar
+    //   ? await updateCar(car?._id, formData)
+    //   : console.log("ERROR");
 
-    handelClick();
+    // handelClick();
   };
-  const isValidCar = useValidCar(formData);
+  // const isValidCar = useValidCar(formData);
 
   return (
     <OpenModel

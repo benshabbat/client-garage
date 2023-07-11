@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { OpenModel, Form } from "..";
 import { createCar } from "../../Utils";
-
+import useValidCar from "../../validation/useValidCar"
 const CreateCar = ({ handelClick, isOpen, user }) => {
-  const CAR_REGEX = /^[0-9]{3}[-][0-9]{2}[-][0-9]{3}|[0-9]{2}[-][0-9]{3}[-][0-9]{2}|[0-9]{7,8}$/;
   const [formData, setFormData] = useState();
-  const [isValidCar, setIsValidCar] = useState();
+  const [isValidCar, setIsValidCar] = useValidCar();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -15,13 +14,7 @@ const CreateCar = ({ handelClick, isOpen, user }) => {
     }
   };
   useEffect(()=>{
-    if (
-      (((formData?.numberPlate.length === 8)||(formData?.numberPlate.length === 7)) && +formData.numberPlate) ||
-      (formData?.numberPlate.length === 10 &&formData.numberPlate.at(3) === "-"&& formData.numberPlate.at(6) === "-") ||
-      (formData?.numberPlate.length === 9 && formData.numberPlate.at(2) === "-"&& formData.numberPlate.at(6) === "-")
-    ) {
-      setIsValidCar(CAR_REGEX.test(formData?.numberPlate));
-    } else setIsValidCar(false);
+    setIsValidCar(formData?.numberPlate)
   },[formData?.numberPlate])
 
   return (
