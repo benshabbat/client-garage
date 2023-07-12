@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const useValidCar = (data=null) => {
+const useValidCar = ({data}) => {
   const CAR_REGEX = /^[0-9]{3}[-][0-9]{2}[-][0-9]{3}|[0-9]{2}[-][0-9]{3}[-][0-9]{2}|[0-9]{7,8}$/;
 
   const [isValidCar, setIsValidCar] = useState();
