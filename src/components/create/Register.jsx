@@ -24,7 +24,7 @@ const Register = ({ handelClick, isOpen }) => {
     }
   };
   useEffect(() => {
-    setIsValidPhone(validPhone(formData?.phone));
+    setIsValidPhone(valid(formData?.phone,"phone"));
   }, [formData?.phone]);
 
   useEffect(() => {

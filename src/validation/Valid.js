@@ -32,17 +32,13 @@ const validEmail = (data) => {
 const valid = (data, type) => {
   switch (type) {
     case "email":
-      validEmail(data);
-      break;
+      return validEmail(data);
     case "password":
-      validPass(data);
-      break;
+      return validPass(data);
     case "phone":
-      validPhone(data);
-      break;
+      return validPhone(data);
     case "car":
-      validCar(data);
-      break;
+      return validCar(data);
     default:
       return false;
   }
