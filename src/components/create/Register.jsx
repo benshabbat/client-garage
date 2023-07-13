@@ -2,19 +2,15 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { createUser } from "../../Utils";
 import { Form, OpenModel } from "..";
-
+import { validPhone, validPass, validEmail } from "../../validation/Valid";
 
 const Register = ({ handelClick, isOpen }) => {
-  const PHONE_REGEX = /^[0-9]{3}[-][0-9]{7}|[0-9]{10}$/;
-  const EMAIL_REGEX =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  const PASS_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
   const { users } = useSelector((state) => state?.admin);
   const [formData, setFormData] = useState();
-  const [isValidPhone,setIsValidPhone]=useState(false)
-  const [isValidEmail,setIsValidEmail]=useState(false)
-  const [isValidPass,setIsValidPass]=useState(false)
-  
+  const [isValidPhone, setIsValidPhone] = useState(false);
+  const [isValidEmail, setIsValidEmail] = useState(false);
+  const [isValidPass, setIsValidPass] = useState(false);
+
   const [isValidUser, setIsValidUser] = useState(false);
 
   const onSubmit = async (e) => {
@@ -22,26 +18,21 @@ const Register = ({ handelClick, isOpen }) => {
     setIsValidUser(
       users.map((user) => user.username).includes(formData?.username)
     );
-    if (isValidPhone && !isValidUser&&isValidEmail && isValidPass) {
+    if (isValidPhone && !isValidUser && isValidEmail && isValidPass) {
       await createUser(formData);
       handelClick();
     }
   };
   useEffect(() => {
-    if (
-      (formData?.phone.length === 10 && +formData.phone) ||
-      (formData?.phone.length === 11 && formData.phone.at(3) === "-")
-    ) {
-      setIsValidPhone(PHONE_REGEX.test(formData?.phone));
-    } else setIsValidPhone(false);
+    setIsValidPhone(validPhone(formData?.phone));
   }, [formData?.phone]);
 
   useEffect(() => {
-    setIsValidPass(PASS_REGEX.test(formData?.password));
+    setIsValidPass(validPass(formData?.password));
   }, [formData?.password]);
 
   useEffect(() => {
-    setIsValidEmail(EMAIL_REGEX.test(formData?.email));
+    setIsValidEmail(validEmail(formData?.email));
   }, [formData?.email]);
 
   return (
@@ -62,7 +53,7 @@ const Register = ({ handelClick, isOpen }) => {
               type: "email",
               invalid: isValidEmail,
               title: "regex@gmail.com",
-              isError:  !isValidEmail,
+              isError: !isValidEmail,
               errorMessage: "Your Email is wrong",
             },
             {
@@ -77,7 +68,7 @@ const Register = ({ handelClick, isOpen }) => {
               type: "password",
               min: 8,
               invalid: isValidPass,
-              isError:!isValidPass,
+              isError: !isValidPass,
               title:
                 "Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters",
               errorMessage: "Your password is wrong",

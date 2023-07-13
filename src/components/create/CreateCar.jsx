@@ -3,7 +3,6 @@ import { OpenModel, Form } from "..";
 import { createCar } from "../../Utils";
 import { validCar } from "../../validation/Valid";
 const CreateCar = ({ handelClick, isOpen, user }) => {
-  const CAR_REGEX = /^[0-9]{3}[-][0-9]{2}[-][0-9]{3}|[0-9]{2}[-][0-9]{3}[-][0-9]{2}|[0-9]{7,8}$/;
   const [formData, setFormData] = useState();
   const [isValidCar, setIsValidCar] = useState();
 
@@ -15,13 +14,6 @@ const CreateCar = ({ handelClick, isOpen, user }) => {
     }
   };
   useEffect(() => {
-    // if (
-    //   (((formData?.numberPlate.length === 8)||(formData?.numberPlate.length === 7)) && +formData.numberPlate) ||
-    //   (formData?.numberPlate.length === 10 &&formData.numberPlate.at(3) === "-"&& formData.numberPlate.at(6) === "-") ||
-    //   (formData?.numberPlate.length === 9 && formData.numberPlate.at(2) === "-"&& formData.numberPlate.at(6) === "-")
-    // ) {
-    //   setIsValidCar(CAR_REGEX.test(formData?.numberPlate));
-    // } else setIsValidCar(false);
     setIsValidCar(validCar(formData?.numberPlate));
   }, [formData?.numberPlate]);
 

@@ -16,8 +16,8 @@ const validCar = (data) => {
 };
 const validPhone = (data) => {
   if (
-    (data.length === 10 && +data) ||
-    (data.length === 11 && data.at(3) === "-")
+    (data?.length === 10 && +data) ||
+    (data?.length === 11 && data.at(3) === "-")
   ) {
     return PHONE_REGEX.test(data);
   } else return false;
