@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { OpenModel, Form } from "..";
 import { createCar } from "../../Utils";
-import { validCar } from "../../validation/ValidCar";
+import { validCar } from "../../validation/Valid";
 const CreateCar = ({ handelClick, isOpen, user }) => {
   const CAR_REGEX = /^[0-9]{3}[-][0-9]{2}[-][0-9]{3}|[0-9]{2}[-][0-9]{3}[-][0-9]{2}|[0-9]{7,8}$/;
   const [formData, setFormData] = useState();
