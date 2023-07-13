@@ -28,4 +28,23 @@ const validPass = (data) => {
 const validEmail = (data) => {
   return EMAIL_REGEX.test(data);
 };
-export { validCar, validPhone, validPass, validEmail };
+
+const valid = (data, type) => {
+  switch (type) {
+    case "email":
+      validEmail(data);
+      break;
+    case "password":
+      validPass(data);
+      break;
+    case "phone":
+      validPhone(data);
+      break;
+    case "car":
+      validCar(data);
+      break;
+    default:
+      return false;
+  }
+};
+export { valid, validCar, validPhone, validPass, validEmail };

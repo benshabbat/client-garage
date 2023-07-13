@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { createUser } from "../../Utils";
 import { Form, OpenModel } from "..";
-import { validPhone, validPass, validEmail } from "../../validation/Valid";
+import {valid, validPhone, validPass, validEmail } from "../../validation/Valid";
 
 const Register = ({ handelClick, isOpen }) => {
   const { users } = useSelector((state) => state?.admin);
