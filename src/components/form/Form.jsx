@@ -1,6 +1,7 @@
 import "./form.css";
 import Input from "../input/Input";
 import CancelIcon from "@mui/icons-material/Cancel";
+import InputCar from "../input/InputCar";
 
 const Form = ({
   title,
@@ -20,7 +21,6 @@ const Form = ({
       [name]: type === "checkbox" ? checked : value,
     }));
   };
-
   return (
     <form className="form" onSubmit={onSubmit}>
       {handelClick && (
@@ -47,16 +47,28 @@ const Form = ({
           </select>
         </label>
       )}
+      
       {inputs.map((i, index) => {
-        return (
-          <Input
-            i={i}
-            index={index}
-            key={index}
-            handleChange={handleChange}
-            isFocus={isFocus}
-          />
-        );
+        if (i?.name === "numberPlate") {
+          return (
+            <InputCar
+              i={i}
+              index={index}
+              key={index}
+              handleChange={handleChange}
+              isFocus={isFocus}
+            />
+          );
+        } else
+          return (
+            <Input
+              i={i}
+              index={index}
+              key={index}
+              handleChange={handleChange}
+              isFocus={isFocus}
+            />
+          );
       })}
       <button type="submit" className="form-btn">
         {title}

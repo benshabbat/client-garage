@@ -21,20 +21,20 @@ const CreateCar = ({ handelClick, isOpen, user }) => {
     <OpenModel
       comp={
         <Form
+        data
           setData={setFormData}
           title="Create Car"
           inputs={[
             // { name: "username", type: "text" },
             {
               name: "numberPlate",
-              type: "text",
-              title: "Number of car must 00-000-00 OR 000-00-000",
-              errorMessage: "Your Car numer is wrong",
+              // title: "Number of car must 00-000-00 OR 000-00-000",
+              // errorMessage: "Your Car numer is wrong",
               isError: !isValidCar,
               invalid: isValidCar,
             },
             { name: "km", type: "number", min: 0 },
-            { name: "brand", type: "text" },
+            { name: "brand" },
           ]}
           handelClick={handelClick}
           onSubmit={onSubmit}
