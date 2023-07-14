@@ -2,7 +2,12 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { createUser } from "../../Utils";
 import { Form, OpenModel } from "..";
-import {valid, validPhone, validPass, validEmail } from "../../validation/Valid";
+import {
+  valid,
+  validPhone,
+  validPass,
+  validEmail,
+} from "../../validation/Valid";
 
 const Register = ({ handelClick, isOpen }) => {
   const { users } = useSelector((state) => state?.admin);
@@ -24,7 +29,7 @@ const Register = ({ handelClick, isOpen }) => {
     }
   };
   useEffect(() => {
-    setIsValidPhone(valid(formData?.phone,"phone"));
+    setIsValidPhone(valid(formData?.phone, "phone"));
   }, [formData?.phone]);
 
   useEffect(() => {
