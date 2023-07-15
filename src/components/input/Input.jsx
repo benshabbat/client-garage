@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-const Input = ({ i, index, handleChange, isFocus }) => {
+const Input = ({ i, index, handleChange, isFocus,isValid,isError }) => {
     const [isBlur, setIsBlur] = useState(false);
     return (
       <label className="form-label">
         {!i.hidden && <span>{i?.name}</span>}
-        {i?.isError && isBlur && <span className="error">{i?.errorMessage}</span>}
+        {isError && isBlur && <span className="error">{i?.errorMessage}</span>}
         <input
           pattern={i?.pattern}
           autoFocus={index === 0 && isFocus}
@@ -18,7 +18,7 @@ const Input = ({ i, index, handleChange, isFocus }) => {
           title={i?.title}
           hidden={i?.hidden}
           onChange={handleChange}
-          aria-invalid={i?.invalid}
+          aria-invalid={isValid}
           required={i?.type !== "checkbox" ? true : false}
           autoComplete="off"
           onBlur={() => setIsBlur(true)}

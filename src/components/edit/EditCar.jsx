@@ -24,12 +24,7 @@ const EditCar = ({ handelClick, isOpen, car }) => {
           inputs={[
             {
               name: "numberPlate",
-              type: "text",
               value: formData?.numberPlate,
-              title: "Number of car must 00-000-00 OR 000-00-000",
-              errorMessage: "Your Car numer is wrong",
-              isError: !isValidCar,
-              invalid: isValidCar,
             },
             {
               name: "km",

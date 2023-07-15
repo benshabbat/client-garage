@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 // import { validCar } from "../../validation/Valid";
-const InputCar = ({ i, index, handleChange, isFocus }) => {
+const InputCar = ({ i, index, handleChange, isFocus,isError,isValid }) => {
   const [isBlur, setIsBlur] = useState(false);
 //   const [isValidCar, setIsValidCar] = useState(false);
 //   useEffect(() => {
@@ -10,7 +10,7 @@ const InputCar = ({ i, index, handleChange, isFocus }) => {
   return (
     <label className="form-label">
       {!i.hidden && <span>{i?.name}</span>}
-      {i?.isError && isBlur &&  (
+      {isError && isBlur &&  (
         <span className="error">Your Car numer is wrong</span>
       )}
       <input
@@ -25,7 +25,7 @@ const InputCar = ({ i, index, handleChange, isFocus }) => {
         title={"Number of car must 00-000-00 OR 000-00-000"}
         hidden={i?.hidden}
         onChange={handleChange}
-        aria-invalid={i?.invalid}
+        aria-invalid={isValid}
         required={i?.type !== "checkbox" ? true : false}
         autoComplete="off"
         onBlur={() => setIsBlur(true)}

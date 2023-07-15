@@ -37,7 +37,7 @@ const valid = (data, type) => {
       return validPass(data);
     case "phone":
       return validPhone(data);
-    case "car":
+    case "numberPlate":
       return validCar(data);
     default:
       return false;

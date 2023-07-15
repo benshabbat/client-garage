@@ -1,8 +1,9 @@
 import "./form.css";
+import { useState } from "react";
 import Input from "../input/Input";
 import CancelIcon from "@mui/icons-material/Cancel";
 import InputCar from "../input/InputCar";
-
+import { valid } from "../../validation/Valid";
 const Form = ({
   title,
   sec_title,
@@ -14,12 +15,19 @@ const Form = ({
   nameSelect,
   isFocus = true,
 }) => {
+  const [isValid, setIsValid] = useState();
+
   const handleChange = (e) => {
     const { name, value, checked, type } = e.target;
     setData((prevState) => ({
       ...prevState,
       [name]: type === "checkbox" ? checked : value,
     }));
+    console.log(value);
+    setIsValid(valid(value, name));
+    
+    
+    console.log(isValid);
   };
   return (
     <form className="form" onSubmit={onSubmit}>
@@ -47,7 +55,7 @@ const Form = ({
           </select>
         </label>
       )}
-      
+
       {inputs.map((i, index) => {
         if (i?.name === "numberPlate") {
           return (
@@ -57,6 +65,8 @@ const Form = ({
               key={index}
               handleChange={handleChange}
               isFocus={isFocus}
+              isValid={isValid}
+              isError={!isValid}
             />
           );
         } else
@@ -67,6 +77,8 @@ const Form = ({
               key={index}
               handleChange={handleChange}
               isFocus={isFocus}
+              isValid={isValid}
+              isError={!isValid}
             />
           );
       })}

@@ -23,22 +23,22 @@ const Register = ({ handelClick, isOpen }) => {
     setIsValidUser(
       users.map((user) => user.username).includes(formData?.username)
     );
-    if (isValidPhone && !isValidUser && isValidEmail && isValidPass) {
+    if (validPhone(formData?.phone) && !isValidUser && validPass(formData?.password) && validEmail(formData?.email)) {
       await createUser(formData);
       handelClick();
     }
   };
-  useEffect(() => {
-    setIsValidPhone(valid(formData?.phone, "phone"));
-  }, [formData?.phone]);
+  // useEffect(() => {
+  //   setIsValidPhone(valid(formData?.phone, "phone"));
+  // }, [formData?.phone]);
 
-  useEffect(() => {
-    setIsValidPass(validPass(formData?.password));
-  }, [formData?.password]);
+  // useEffect(() => {
+  //   setIsValidPass(validPass(formData?.password));
+  // }, [formData?.password]);
 
-  useEffect(() => {
-    setIsValidEmail(validEmail(formData?.email));
-  }, [formData?.email]);
+  // useEffect(() => {
+  //   setIsValidEmail(validEmail(formData?.email));
+  // }, [formData?.email]);
 
   return (
     <OpenModel
@@ -51,29 +51,29 @@ const Register = ({ handelClick, isOpen }) => {
             {
               name: "username",
               errorMessage: "Username is exist",
-              isError: isValidUser,
+              isError: !isValidUser,
             },
             {
               name: "email",
               type: "email",
-              invalid: isValidEmail,
+              // invalid: isValidEmail,
               title: "regex@gmail.com",
-              isError: !isValidEmail,
+              // isError: !isValidEmail,
               errorMessage: "Your Email is wrong",
             },
             {
               name: "phone",
-              invalid: isValidPhone,
+              // invalid: isValidPhone,
               title: "Number of phone must 050-1234567",
               errorMessage: "Your phone number is wrong",
-              isError: !isValidPhone,
+              // isError: !isValidPhone,
             },
             {
               name: "password",
               type: "password",
               min: 8,
-              invalid: isValidPass,
-              isError: !isValidPass,
+              // invalid: isValidPass,
+              // isError: !isValidPass,
               title:
                 "Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters",
               errorMessage: "Your password is wrong",
