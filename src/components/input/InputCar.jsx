@@ -1,19 +1,16 @@
-import { useEffect, useState } from "react";
-// import { validCar } from "../../validation/Valid";
-const InputCar = ({ i, index, handleChange, isFocus,isError,isValid }) => {
+import { useState, useRef } from "react";
+import { valid } from "../../validation/Valid";
+const InputCar = ({ i, index, handleChange, isFocus }) => {
+  const ref = useRef();
   const [isBlur, setIsBlur] = useState(false);
-//   const [isValidCar, setIsValidCar] = useState(false);
-//   useEffect(() => {
-//     setIsValidCar(validCar(i?.value));
-//     console.log("check")
-//   }, [i?.value]);
   return (
     <label className="form-label">
       {!i.hidden && <span>{i?.name}</span>}
-      {isError && isBlur &&  (
+      {!valid(ref?.current?.value,i?.name) && isBlur && (
         <span className="error">Your Car numer is wrong</span>
       )}
       <input
+        ref={ref}
         pattern={i?.pattern}
         autoFocus={index === 0 && isFocus}
         placeholder={i?.name}
@@ -25,7 +22,7 @@ const InputCar = ({ i, index, handleChange, isFocus,isError,isValid }) => {
         title={"Number of car must 00-000-00 OR 000-00-000"}
         hidden={i?.hidden}
         onChange={handleChange}
-        aria-invalid={isValid}
+        aria-invalid={valid(ref?.current?.value,i?.name) }
         required={i?.type !== "checkbox" ? true : false}
         autoComplete="off"
         onBlur={() => setIsBlur(true)}

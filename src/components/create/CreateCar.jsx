@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 import { OpenModel, Form } from "..";
 import { createCar } from "../../Utils";
 import { validCar } from "../../validation/Valid";
@@ -17,17 +17,15 @@ const CreateCar = ({ handelClick, isOpen, user }) => {
     <OpenModel
       comp={
         <Form
-        data
+          data
           setData={setFormData}
           title="Create Car"
           inputs={[
-            // { name: "username", type: "text" },
             {
               name: "numberPlate",
-    
             },
-            { name: "km", type: "number", min: 0,  },
-            { name: "brand",},
+            { name: "km", type: "number", min: 0 },
+            { name: "brand" },
           ]}
           handelClick={handelClick}
           onSubmit={onSubmit}
