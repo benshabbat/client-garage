@@ -1,14 +1,18 @@
 import React, { useState, useRef } from "react";
 import { valid } from "../../validation/Valid";
-const Input = ({ i, index, handleChange, isFocus, isValid, isError }) => {
+const Input = ({ i, index, handleChange, isFocus }) => {
   const [isBlur, setIsBlur] = useState(false);
   const ref = useRef();
   return (
     <label className="form-label">
       {!i.hidden && <span>{i?.name}</span>}
-      {!valid(ref?.current?.value, i?.name) && isBlur && (
-        <span className="error">{i?.errorMessage}</span>
-      )}
+      {}
+      {i?.name === "username"
+        ? i?.isError &&
+          isBlur && <span className="error">{i?.errorMessage}</span>
+        : !valid(ref?.current?.value, i?.name) &&
+          isBlur && <span className="error">{i?.errorMessage}</span>}
+
       <input
         ref={ref}
         pattern={i?.pattern}
