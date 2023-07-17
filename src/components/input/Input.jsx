@@ -1,4 +1,4 @@
-import React, { useState, useRef,useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { valid } from "../../validation/Valid";
 const Input = ({ i, index, handleChange, isFocus }) => {
   const [isBlur, setIsBlur] = useState(false);
@@ -14,31 +14,32 @@ const Input = ({ i, index, handleChange, isFocus }) => {
 
       case "password":
         return setIputsType({
-          title: "Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters",
-          errorMessage:"Your password is wrong",
+          title:
+            "Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters",
+          errorMessage: "Your password is wrong",
         });
       case "phone":
         return setIputsType({
           title: "Number of phone must 050-1234567",
-          errorMessage:"Your phone number is wrong",
+          errorMessage: "Your phone number is wrong",
         });
       case "numberPlate":
         return setIputsType({
           title: "Number of car must 00-000-00 OR 000-00-000",
-          errorMessage:"Your Car numer is wrong",
-        }););
+          errorMessage: "Your Car numer is wrong",
+        });
       default:
         return setIputsType({ title: i?.title, errorMessage: i?.errorMessage });
     }
   };
   useEffect(() => {
-    inputType(i?.name)
-  }, [i?.name])
-  
+    inputType(i?.name);
+  }, [i?.name]);
+
   return (
     <label className="form-label">
       {!i.hidden && <span>{i?.name}</span>}
- 
+
       {i?.name === "username"
         ? i?.isError &&
           isBlur && <span className="error">{iputsType?.errorMessage}</span>

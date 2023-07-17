@@ -49,19 +49,19 @@ const Form = ({
       )}
 
       {inputs.map((i, index) => {
-        if (i?.name === "numberPlate") {
-          return (
-            <InputCar
-              i={i}
-              index={index}
-              key={index}
-              handleChange={handleChange}
-              isFocus={isFocus}
-              // isValid={isValid}
-              // isError={!isValid}
-            />
-          );
-        } else
+        // if (i?.name === "numberPlate") {
+        //   return (
+        //     <InputCar
+        //       i={i}
+        //       index={index}
+        //       key={index}
+        //       handleChange={handleChange}
+        //       isFocus={isFocus}
+        //       // isValid={isValid}
+        //       // isError={!isValid}
+        //     />
+        //   );
+        // } else
           return (
             <Input
               i={i}
