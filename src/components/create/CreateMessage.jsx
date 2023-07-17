@@ -20,7 +20,7 @@ const CreateMessage = ({ handelClick, isOpen ,user,users=null }) => {
           setData={setFormData}
           title="Create Message"
           inputs={[
-            { name: "title", type: "text" },
+            { name: "title" },
             { name: "description", type: "textarea" },
           ]}
           options={user?.isAdmin?users:null}

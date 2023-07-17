@@ -13,7 +13,7 @@ const CreateService = ({ handelClick, isOpen, car }) => {
     { value: "done", label: "Done" },
     { value: "on-work", label: "On work" },
   ];
- 
+
   return (
     <OpenModel
       comp={
@@ -21,18 +21,16 @@ const CreateService = ({ handelClick, isOpen, car }) => {
           setData={setFormData}
           title="Create Service"
           inputs={[
-            // { name: "numberPlate", type: "text" },
-            { name: "title", type: "text" },
-            { name: "description", type: "text" },
-            { name: "price", type: "number",min:0 },
+            { name: "title" },
+            { name: "description" },
+            { name: "price", type: "number", min: 0 },
             { name: "paid", type: "checkbox" },
-            // { name: "status", type: "text" },
           ]}
           options={options}
           nameSelect="status"
           handelClick={handelClick}
           onSubmit={onSubmit}
-          />
+        />
       }
       isOpen={isOpen}
     />
