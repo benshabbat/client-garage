@@ -1,7 +1,6 @@
 import "./form.css";
 import Input from "../input/Input";
 import CancelIcon from "@mui/icons-material/Cancel";
-import InputCar from "../input/InputCar";
 const Form = ({
   title,
   sec_title,
@@ -49,30 +48,15 @@ const Form = ({
       )}
 
       {inputs.map((i, index) => {
-        // if (i?.name === "numberPlate") {
-        //   return (
-        //     <InputCar
-        //       i={i}
-        //       index={index}
-        //       key={index}
-        //       handleChange={handleChange}
-        //       isFocus={isFocus}
-        //       // isValid={isValid}
-        //       // isError={!isValid}
-        //     />
-        //   );
-        // } else
-          return (
-            <Input
-              i={i}
-              index={index}
-              key={index}
-              handleChange={handleChange}
-              isFocus={isFocus}
-              // isValid={isValid}
-              // isError={!isValid}
-            />
-          );
+        return (
+          <Input
+            i={i}
+            index={index}
+            key={index}
+            handleChange={handleChange}
+            isFocus={isFocus}
+          />
+        );
       })}
       <button type="submit" className="form-btn">
         {title}
