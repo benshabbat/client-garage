@@ -45,21 +45,21 @@ const Register = ({ handelClick, isOpen }) => {
             {
               name: "email",
               type: "email",
-              title: "regex@gmail.com",
-              errorMessage: "Your Email is wrong",
+              // title: "regex@gmail.com",
+              // errorMessage: "Your Email is wrong",
             },
             {
               name: "phone",
-              title: "Number of phone must 050-1234567",
-              errorMessage: "Your phone number is wrong",
+              // title: "Number of phone must 050-1234567",
+              // errorMessage: "Your phone number is wrong",
             },
             {
               name: "password",
               type: "password",
               min: 8,
-              title:
-                "Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters",
-              errorMessage: "Your password is wrong",
+              // title:
+                // "Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters",
+              // errorMessage: "Your password is wrong",
             },
           ]}
           handelClick={handelClick}
