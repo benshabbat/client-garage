@@ -20,19 +20,19 @@ const EditCar = ({ handelClick, isOpen, car }) => {
         <Form
           setData={setFormData}
           title="Edit Car"
-          sec_title="enter your name & password"
+          sec_title="enter your km"
           inputs={[
-            {
-              name: "numberPlate",
-              value: formData?.numberPlate,
-            },
+            // {
+            //   name: "numberPlate",
+            //   value: formData?.numberPlate,
+            // },
             {
               name: "km",
               type: "number",
               value: formData?.km,
               min: car?.km,
             },
-            { name: "brand", type: "text", value: formData?.brand },
+            // { name: "brand", type: "text", value: formData?.brand },
           ]}
           handelClick={handelClick}
           onSubmit={onSubmit}

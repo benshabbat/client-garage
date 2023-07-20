@@ -4,10 +4,12 @@ import useOpenModel from "../hooks/useOpenModel";
 import ManageCar from "../components/manage/ManageCar";
 import { getCarsByType } from "../features/admin/adminSlice";
 import { useDispatch } from "react-redux";
+import EditCar from "../components/edit/EditCar";
 const Cars = ({ userId, cars = null }) => {
   const [car, setCar] = useState();
   const [handleManageCar, isOpenManageCar] = useOpenModel();
   const [filterCars, setFilterCars] = useState();
+  const [handleEditCar, isOpenModelEditCar] = useOpenModel();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCarsByType(userId));
@@ -24,24 +26,35 @@ const Cars = ({ userId, cars = null }) => {
       )
     );
   };
-  const handleCar = (e) => {
+  const handleCar = async (e) => {
+    e.preventDefault();
+    const { name } = e.target;
     if (e.target.value) {
       setCar(cars.find((car) => car._id === e.target.value));
-      console.log(car);
-      handleManageCar();
+      // console.log(car);
+      // handleManageCar();
+      // if (name === "editCar") {
+      // setCar(cars.find((car) => car._id === e.target.value));
+      // dispatch(getCars());
+      // }
+      handleEditCar();
     }
   };
   const bodyCars = (car) => {
     return (
       <tr key={car?._id}>
-        <td>
+        {/* <td>
           <button value={car?._id} onClick={handleCar}>
             Manage
           </button>
-        </td>
+        </td> */}
         <td>{car?.owner?.username}</td>
         <td>{car?.numberPlate}</td>
-        <td>{car?.km}</td>
+        <td>
+          <button name="editCar" value={car?._id} onClick={handleCar}>
+            {car?.km}
+          </button>
+        </td>
         <td>{car?.brand}</td>
       </tr>
     );
@@ -63,7 +76,7 @@ const Cars = ({ userId, cars = null }) => {
           <table>
             <thead>
               <tr>
-                <th></th>
+                {/* <th></th> */}
                 <th>owner</th>
                 <th>numberPlate</th>
                 <th>km</th>
@@ -80,6 +93,11 @@ const Cars = ({ userId, cars = null }) => {
         car={car}
         handelClick={handleManageCar}
         isOpen={isOpenManageCar}
+      />
+      <EditCar
+        car={car}
+        handelClick={handleEditCar}
+        isOpen={isOpenModelEditCar}
       />
     </>
   );
