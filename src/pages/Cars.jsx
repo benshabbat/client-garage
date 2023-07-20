@@ -6,6 +6,8 @@ import { getCarsByType } from "../features/admin/adminSlice";
 import { useDispatch } from "react-redux";
 import EditCar from "../components/edit/EditCar";
 import CreateService from "../components/create/CreateService";
+import {BiSolidCarCrash,BiTrash} from "react-icons/bi"
+import { deleteCar } from "../Utils";
 const Cars = ({ userId, cars = null }) => {
   const [car, setCar] = useState();
   const [handleManageCar, isOpenManageCar] = useOpenModel();
@@ -41,6 +43,10 @@ const Cars = ({ userId, cars = null }) => {
       handleEditCar();
     }
     if (name === "createService") handleCreateService();
+    if (name === "deleteCar") {
+      await deleteCar(car?._id, car?.owner._id.toString());
+      // dispatch(getCars());
+    }
     // }
   };
   const bodyCars = (car) => {
@@ -51,6 +57,14 @@ const Cars = ({ userId, cars = null }) => {
             Manage
           </button>
         </td> */}
+        <td>
+        <button name="createService" value={car?._id} onClick={handleCar}>
+          <BiSolidCarCrash/>
+          </button>
+        <button name="deleteCar" value={car?._id} onClick={handleCar}>
+          <BiTrash/>
+          </button>
+        </td>
         <td>{car?.owner?.username}</td>
         <td>
           <button name="createService" value={car?._id} onClick={handleCar}>
@@ -83,7 +97,7 @@ const Cars = ({ userId, cars = null }) => {
           <table>
             <thead>
               <tr>
-                {/* <th></th> */}
+                <th></th>
                 <th>owner</th>
                 <th>numberPlate</th>
                 <th>km</th>
