@@ -5,11 +5,13 @@ import ManageCar from "../components/manage/ManageCar";
 import { getCarsByType } from "../features/admin/adminSlice";
 import { useDispatch } from "react-redux";
 import EditCar from "../components/edit/EditCar";
+import CreateService from "../components/create/CreateService";
 const Cars = ({ userId, cars = null }) => {
   const [car, setCar] = useState();
   const [handleManageCar, isOpenManageCar] = useOpenModel();
   const [filterCars, setFilterCars] = useState();
   const [handleEditCar, isOpenModelEditCar] = useOpenModel();
+  const [handleCreateService, isOpenModelCreateService] = useOpenModel();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCarsByType(userId));
@@ -29,16 +31,17 @@ const Cars = ({ userId, cars = null }) => {
   const handleCar = async (e) => {
     e.preventDefault();
     const { name } = e.target;
-    if (e.target.value) {
+    // if (e.target.value) {
+    //   setCar(cars.find((car) => car._id === e.target.value));
+    // console.log(car);
+    // handleManageCar();
+    if (name === "editCar") {
       setCar(cars.find((car) => car._id === e.target.value));
-      // console.log(car);
-      // handleManageCar();
-      // if (name === "editCar") {
-      // setCar(cars.find((car) => car._id === e.target.value));
-      // dispatch(getCars());
-      // }
+
       handleEditCar();
     }
+    if (name === "createService") handleCreateService();
+    // }
   };
   const bodyCars = (car) => {
     return (
@@ -49,7 +52,11 @@ const Cars = ({ userId, cars = null }) => {
           </button>
         </td> */}
         <td>{car?.owner?.username}</td>
-        <td>{car?.numberPlate}</td>
+        <td>
+          <button name="createService" value={car?._id} onClick={handleCar}>
+          {car?.numberPlate}
+          </button>
+        </td>
         <td>
           <button name="editCar" value={car?._id} onClick={handleCar}>
             {car?.km}
@@ -93,6 +100,11 @@ const Cars = ({ userId, cars = null }) => {
         car={car}
         handelClick={handleManageCar}
         isOpen={isOpenManageCar}
+      />
+      <CreateService
+        car={car}
+        handelClick={handleCreateService}
+        isOpen={isOpenModelCreateService}
       />
       <EditCar
         car={car}
