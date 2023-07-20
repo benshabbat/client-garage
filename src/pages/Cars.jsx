@@ -6,14 +6,16 @@ import { getCarsByType } from "../features/admin/adminSlice";
 import { useDispatch } from "react-redux";
 import EditCar from "../components/edit/EditCar";
 import CreateService from "../components/create/CreateService";
-import {BiSolidCarCrash,BiTrash} from "react-icons/bi"
+import { BiSolidCarCrash, BiTrash } from "react-icons/bi";
 import { deleteCar } from "../Utils";
+import DeleteCar from "../components/delete/DeleteCar";
 const Cars = ({ userId, cars = null }) => {
   const [car, setCar] = useState();
   const [handleManageCar, isOpenManageCar] = useOpenModel();
   const [filterCars, setFilterCars] = useState();
   const [handleEditCar, isOpenModelEditCar] = useOpenModel();
   const [handleCreateService, isOpenModelCreateService] = useOpenModel();
+  const [handleDeleteCar, isOpenModelDeleteCar] = useOpenModel();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCarsByType(userId));
@@ -31,20 +33,19 @@ const Cars = ({ userId, cars = null }) => {
     );
   };
   const handleCar = async (e) => {
-    e.preventDefault();
     const { name } = e.target;
+    setCar(cars.find((car) => car._id === e.target.value));
     // if (e.target.value) {
     //   setCar(cars.find((car) => car._id === e.target.value));
     // console.log(car);
     // handleManageCar();
     if (name === "editCar") {
-      setCar(cars.find((car) => car._id === e.target.value));
-
       handleEditCar();
     }
     if (name === "createService") handleCreateService();
     if (name === "deleteCar") {
-      await deleteCar(car?._id, car?.owner._id.toString());
+      // setCar(cars.find((car) => car._id === e.target.value));
+      handleDeleteCar();
       // dispatch(getCars());
     }
     // }
@@ -58,17 +59,17 @@ const Cars = ({ userId, cars = null }) => {
           </button>
         </td> */}
         <td>
-        <button name="createService" value={car?._id} onClick={handleCar}>
-          <BiSolidCarCrash/>
+          <button name="createService" value={car?._id} onClick={handleCar}>
+            Service <BiSolidCarCrash />
           </button>
-        <button name="deleteCar" value={car?._id} onClick={handleCar}>
-          <BiTrash/>
+          <button name="deleteCar" value={car?._id} onClick={handleCar}>
+            Delete <BiTrash />
           </button>
         </td>
         <td>{car?.owner?.username}</td>
         <td>
           <button name="createService" value={car?._id} onClick={handleCar}>
-          {car?.numberPlate}
+            {car?.numberPlate}
           </button>
         </td>
         <td>
@@ -124,6 +125,11 @@ const Cars = ({ userId, cars = null }) => {
         car={car}
         handelClick={handleEditCar}
         isOpen={isOpenModelEditCar}
+      />
+      <DeleteCar
+        car={car}
+        handelClick={handleDeleteCar}
+        isOpen={isOpenModelDeleteCar}
       />
     </>
   );
