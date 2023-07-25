@@ -4,14 +4,16 @@ import useOpenModel from "../hooks/useOpenModel";
 import ManageService from "../components/manage/ManageService";
 import { useDispatch } from "react-redux";
 import { getServicesByType } from "../features/admin/adminSlice";
+import EditStatusService from "../components/edit/EditStatusService";
 const ServicesAdmin = ({ services }) => {
   const [servicesFilter, setServicesFilter] = useState();
   const [service, setService] = useState();
   const [handelService, isOpenService] = useOpenModel();
+  const [handleStatus, isOpenStatus] = useOpenModel();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getServicesByType());
-  }, [isOpenService]);
+  }, [isOpenService,isOpenStatus]);
   const filterSearch = (e) => {
     const { value } = e.target;
 
@@ -28,17 +30,18 @@ const ServicesAdmin = ({ services }) => {
     );
   };
   const handleServiceId = (e) => {
-    if (e.target.value) {
-      console.log(e.target.value);
-      setService(services.find((service) => service._id === e.target.value));
+    const { name } = e.target;
+    setService(services.find((service) => service._id === e.target.value));
+    if (name === "manage") {
       handelService();
     }
+    if (name === "editStatus") handleStatus();
   };
   const bodyServices = (service) => {
     return (
       <tr key={service?._id}>
         <td>
-          <button value={service?._id} onClick={handleServiceId}>
+          <button name="manage" value={service?._id} onClick={handleServiceId}>
             Manage
           </button>
         </td>
@@ -48,7 +51,14 @@ const ServicesAdmin = ({ services }) => {
         <td>{service?.price}</td>
         <td>{service?.paid ? "true" : "false"}</td>
         <td>
-          <div className={`status ${service?.status}`}>{service?.status}</div>
+          <button
+            className={`status ${service?.status}`}
+            name="editStatus"
+            value={service?._id}
+            onClick={handleServiceId}
+          >
+            {service?.status}
+          </button>
         </td>
       </tr>
     );
@@ -91,6 +101,11 @@ const ServicesAdmin = ({ services }) => {
         service={service}
         handelClick={handelService}
         isOpen={isOpenService}
+      />
+      <EditStatusService
+        service={service}
+        handelClick={handleStatus}
+        isOpen={isOpenStatus}
       />
     </>
   );

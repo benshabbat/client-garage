@@ -59,17 +59,17 @@ const Cars = ({ userId, cars = null }) => {
           </button>
         </td> */}
         <td>
-          <button name="createService" value={car?._id} onClick={handleCar}>
-            Service <BiSolidCarCrash />
-          </button>
+          {/* <button name="createService" value={car?._id} onClick={handleCar}>
+           
+          </button> */}
           <button name="deleteCar" value={car?._id} onClick={handleCar}>
-            Delete <BiTrash />
+             <BiTrash />Delete
           </button>
         </td>
         <td>{car?.owner?.username}</td>
         <td>
           <button name="createService" value={car?._id} onClick={handleCar}>
-            {car?.numberPlate}
+          <BiSolidCarCrash /> {car?.numberPlate}
           </button>
         </td>
         <td>

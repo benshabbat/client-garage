@@ -4,7 +4,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 const Form = ({
   title,
   sec_title,
-  inputs,
+  inputs=[],
   onSubmit,
   handelClick = null,
   setData,
