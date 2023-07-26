@@ -5,15 +5,17 @@ import ManageService from "../components/manage/ManageService";
 import { useDispatch } from "react-redux";
 import { getServicesByType } from "../features/admin/adminSlice";
 import EditStatusService from "../components/edit/EditStatusService";
+import EditPaidService from "../components/edit/EditPaidService";
 const ServicesAdmin = ({ services }) => {
   const [servicesFilter, setServicesFilter] = useState();
   const [service, setService] = useState();
   const [handelService, isOpenService] = useOpenModel();
   const [handleStatus, isOpenStatus] = useOpenModel();
+  const [handlePaid, isOpenPaid] = useOpenModel();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getServicesByType());
-  }, [isOpenService,isOpenStatus]);
+  }, [isOpenService,isOpenStatus,isOpenPaid]);
   const filterSearch = (e) => {
     const { value } = e.target;
 
@@ -36,6 +38,7 @@ const ServicesAdmin = ({ services }) => {
       handelService();
     }
     if (name === "editStatus") handleStatus();
+    if (name === "editPadid") handlePaid();
   };
   const bodyServices = (service) => {
     return (
@@ -49,7 +52,12 @@ const ServicesAdmin = ({ services }) => {
         <td>{service?.title}</td>
         <td>{service?.description}</td>
         <td>{service?.price}</td>
-        <td>{service?.paid ? "true" : "false"}</td>
+        <td>     <button
+         
+            name="editPadid"
+            value={service?._id}
+            onClick={handleServiceId}
+          >{service?.paid ? "true" : "false"}</button></td>
         <td>
           <button
             className={`status ${service?.status}`}
@@ -106,6 +114,11 @@ const ServicesAdmin = ({ services }) => {
         service={service}
         handelClick={handleStatus}
         isOpen={isOpenStatus}
+      />
+      <EditPaidService
+        service={service}
+        handelClick={handlePaid}
+        isOpen={isOpenPaid}
       />
     </>
   );
