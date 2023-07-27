@@ -15,7 +15,7 @@ const ServicesAdmin = ({ services }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getServicesByType());
-  }, [isOpenService,isOpenStatus,isOpenPaid]);
+  }, [isOpenService, isOpenStatus, isOpenPaid]);
   const filterSearch = (e) => {
     const { value } = e.target;
 
@@ -52,12 +52,16 @@ const ServicesAdmin = ({ services }) => {
         <td>{service?.title}</td>
         <td>{service?.description}</td>
         <td>{service?.price}</td>
-        <td>     <button
-         
+        <td>
+          {" "}
+          <button
             name="editPadid"
             value={service?._id}
             onClick={handleServiceId}
-          >{service?.paid ? "true" : "false"}</button></td>
+          >
+            {service?.paid ? "true" : "false"}
+          </button>
+        </td>
         <td>
           <button
             className={`status ${service?.status}`}

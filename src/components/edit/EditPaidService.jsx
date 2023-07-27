@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Form, OpenModel } from "../index";
 import { updateService } from "../../Utils";
-const EditPaidService = ({ handelClick, isOpen, service=null }) => {
+const EditPaidService = ({ handelClick, isOpen, service }) => {
     const [formData, setFormData] = useState(service);
     const onSubmit = async (e) => {
       e.preventDefault();

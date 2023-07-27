@@ -54,7 +54,7 @@ const Input = ({ i, index, handleChange, isFocus }) => {
         type={i?.type}
         name={i?.name}
         value={i?.value}
-        checked={i?.checked}
+        checked={i?.checked? i?.checked: false}
         min={i?.min}
         title={iputsType?.title}
         hidden={i?.hidden}
